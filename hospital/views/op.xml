@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="op_form" model="ir.ui.view">
+        <field name="name">hospital.op.form</field>
+        <field name="model">hospital.op</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button id="button_confirm" name="action_confirm"
+                            string="Confirm" class="btn-primary" type="object"/>
+                    <button name="action_create_invoice" id="fee_payment_btn"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible':[('state', '!=', 'op')]}"
+                            string="Fee Payment"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="patient_card"/>
+                            <field name="name"/>
+                            <field name="age"/>
+                            <field name="gender"/>
+                            <field name="blood_group"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="doctor"/>
+                            <field name="department"/>
+                            <field name="fee"/>
+                            <field name="token"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="op_tree" model="ir.ui.view">
+        <field name="name">hospital.op.form</field>
+        <field name="model">hospital.op</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="patient_card"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="fee"/>
+                <field name="token"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="op_search" model="ir.ui.view">
+        <field name="name">op.search</field>
+        <field name="model">hospital.op</field>
+        <field name="arch" type="xml">
+            <search string="OP">
+                <field name="name"/>
+                <field name="state"/>
+                <separator/>
+                <filter string="Draft" name="draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="OP" name="op" domain="[('state', '=', 'op')]"/>
+                <group expand="'1" string="Group By">
+                    <filter string="State" name="state"
+                            context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="op_action" model="ir.actions.act_window">
+        <field name="name">OP</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.op</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                create your first patient op</p>
+        </field>
+    </record>
+    <menuitem id="hospital_op_root"
+              name="OP"
+              parent="hospital_root"
+              sequence="10"/>
+    <menuitem id="hospital.op"
+              name="OP"
+              parent="hospital_op_root"
+              action="op_action"
+              sequence="10"/>
+</odoo>

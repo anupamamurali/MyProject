@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="consult_form" model="ir.ui.view">
+        <field name="name">hospital.consult.form</field>
+        <field name="model">hospital.consult</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="patient_card"/>
+                            <field name="consult_type"/>
+                            <field name="disease"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="doctor"/>
+                            <field name="department" readonly="1" force_save="1"/>
+                            <field name="description"/>
+                        </group>
+                        <notebook>
+                            <page string="Treatment" name="treatment">
+                                <field name="prescription_line_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="dose"/>
+                                        <field name="days"/>
+                                        <field name="note"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="dose"/>
+                                            </group>
+                                            <group>
+                                                <field name="days"/>
+                                                <field name="note"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="consult_tree" model="ir.ui.view">
+        <field name="name">hospital.consult.form</field>
+        <field name="model">hospital.consult</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="patient_card"/>
+                <field name="consult_type"/>
+                <field name="disease"/>
+                <field name="doctor"/>
+                <field name="department"/>
+            </tree>
+        </field>
+    </record>
+    <record id="consult_search" model="ir.ui.view">
+        <field name="name">consult.search</field>
+        <field name="model">hospital.consult</field>
+        <field name="arch" type="xml">
+            <search string="Consultation">
+                <field name="consult_type"/>
+                <field name="disease"/>
+                <field name="doctor"/>
+                <field name="department"/>
+                <separator/>
+                <filter string="IP" name="ip"
+                        domain="[('consult_type', '=', 'ip')]"/>
+                <filter string="OP" name="op"
+                        domain="[('consult_type', '=', 'op')]"/>
+                <group expand="'1" string="Group By">
+                    <filter string="Doctor" name="doctor"
+                            context="{'group_by':'doctor'}"/>
+                </group>
+                <group expand="'1" string="Group By">
+                    <filter string="Department" name="department"
+                            context="{'group_by':'department'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="consult_action" model="ir.actions.act_window">
+        <field name="name">Consultation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.consult</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                create your first consultation
+            </p>
+        </field>
+    </record>
+    <menuitem id="hospital_consult_root"
+              name="Consultation"
+              parent="hospital_root"
+              sequence="11"/>
+    <menuitem id="hospital_consult"
+              name="Consultation"
+              parent="hospital_consult_root"
+              action="consult_action"
+              sequence="11"/>
+</odoo>

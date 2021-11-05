@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="appointment_form" model="ir.ui.view">
+        <field name="name">hospital.appointment.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button id="button_appointment" name="action_confirm"
+                            string="Confirm" class="btn-primary" type="object"/>
+                    <button id="button_op" name="action_op"
+                            string="Convert To OP" class="btn-primary"
+                            type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_op" type="object"
+                                class="oe_stat_button" icon="fa-exchange"
+                                attrs="{'invisible':[('state', '!=', 'op')]}">
+                            <div class="o_stat_info">
+                                <field name="op_count" class="o_stat_value"/>
+                                <span class="o_stat_text">OP</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="patient_card"/>
+                            <field name="name"/>
+                            <field name="doctor"/>
+                            <field name="department"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="token"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="appointment_tree" model="ir.ui.view">
+        <field name="name">hospital.appointment.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+                <tree>
+                    <field name="patient_card"/>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="doctor"/>
+                    <field name="department"/>
+                    <field name="token"/>
+                    <field name="state"/>
+                </tree>
+        </field>
+    </record>
+    <record id="appointment_search" model="ir.ui.view">
+        <field name="name">appointment.search</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search string="Appointment">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="doctor"/>
+                <field name="department"/>
+                <field name="state"/>
+                <separator/>
+                <filter string="Draft" name="draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Appointment" name="appointment"
+                        domain="[('state', '=', 'appointment')]"/>
+                <filter string="OP" name="op" domain="[('state', '=', 'op')]"/>
+                <group expand="'1" string="Group By">
+                    <filter string="State" name="state"
+                            context="{'group_by':'state'}"/>
+                </group>
+                <group expand="'1" string="Group By">
+                    <filter string="Doctor" name="doctor"
+                            context="{'group_by':'doctor'}"/>
+                </group>
+                <group expand="'1" string="Group By">
+                    <filter string="Department" name="department"
+                            context="{'group_by':'department'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="appointment_action" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                create your first patient appointment</p>
+        </field>
+    </record>
+    <menuitem id="hospital_appointment"
+              name="Appointment"
+              parent="hospital_op_root"
+              action="appointment_action"
+              sequence="11"/>
+</odoo>
