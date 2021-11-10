@@ -7,10 +7,10 @@
     'category': 'Hidden',
     'website': '',
     'depends': [
-        'sale_management'
+        'sale_management',
+        'base'
     ],
     'data': [
-        'security/ir.model.access.csv',
         'views/discount.xml'
     ],
     'demo': [],
