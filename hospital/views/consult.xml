@@ -105,4 +105,13 @@
               parent="hospital_consult_root"
               action="consult_action"
               sequence="11"/>
+    <menuitem id="menu_report"
+              name="Hospital Report"
+              parent="hospital_root"
+              sequence="20"/>
+    <menuitem id="menu_patient_report"
+              name="Patient Report"
+              parent="menu_report"
+              action="action_report_patient"
+              sequence="10"/>
 </odoo>

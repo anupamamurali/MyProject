@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 from datetime import datetime
 
 
@@ -19,12 +19,10 @@ class HospitalOP(models.Model):
     department = fields.Many2one(string='Department',
                                  related='doctor.department_id')
     currency_id = fields.Many2one('res.currency', string='Currency')
-    # fee = fields.Monetary(string='Fee')
     fee = fields.Monetary(string='Fee', related='doctor.fee')
     state = fields.Selection([('draft', 'Draft'), ('op', 'OP')],
                              string='Status', default='draft')
     token = fields.Char(string='Token', readonly=True)
-   # products = fields.Many2many('product.product', domain="[('product_tmpl_id.type', '=', ""'service')]")
 
     def action_confirm(self):
         self.state = 'op'
@@ -43,18 +41,16 @@ class HospitalOP(models.Model):
         self.token = count1 + count2
 
     def action_create_invoice(self):
-        data = [0, 0, {
-            'name': 'OP',
-            'quantity': 1,
-            'price_unit': self.fee
-        }]
         invoice = self.env['account.move'].create({
-            'move_type': 'out_invoice',
-            'ref': self.patient_card.id,
-            'partner_id': self.name,
-            'state': 'draft',
-            'invoice_date': datetime.today(),
-            'date': datetime.today(),
-            'invoice_line_ids': data
+           'move_type': 'out_invoice',
+           'ref': self.patient_card.id,
+           'partner_id': self.name,
+           'state': 'draft',
+           'invoice_date': datetime.today(),
+           'date': datetime.today(),
+           'invoice_line_ids': [0, 0, {
+                'name': 'OP',
+                'quantity': 1,
+                'price_unit': self.fee
+           }]
         })
-

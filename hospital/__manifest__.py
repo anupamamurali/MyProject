@@ -1,6 +1,6 @@
 {
-    'name': 'Hospital Management App',
-    'version': '14.0.1.0.0',
+    'name': 'Hospital Management',
+    'version': '14.0.5.0.0',
     'summary': 'Hospital Management Application',
     'sequence': -100,
     'description': """Hospital Management Application""",
@@ -9,11 +9,13 @@
     'depends': [
         'contacts',
         'base',
-        'account'
+        'account',
+        'mail'
     ],
     'data': [
         'security/ir.model.access.csv',
         'data/data.xml',
+        'wizard/patient_report_view.xml',
         'views/partner_view.xml',
         'views/doctor_view.xml',
         'views/patient_card.xml',

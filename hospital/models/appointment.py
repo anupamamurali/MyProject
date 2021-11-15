@@ -4,6 +4,7 @@ from datetime import date, datetime
 
 class HospitalAppointment(models.Model):
     _name = "hospital.appointment"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Hospital Appointment"
 
     patient_card = fields.Many2one('hospital.patient.card',
@@ -17,7 +18,8 @@ class HospitalAppointment(models.Model):
                                  related='doctor.department_id')
     state = fields.Selection([('draft', 'Draft'),
                               ('appointment', 'Appointment'), ('op', 'OP')],
-                             string='Status', default='draft')
+                             string='Status', default='draft',
+                             track_visibility='always')
     token = fields.Char(string='Token', readonly=True)
     op_count = fields.Integer(string='OP Count', compute='_compute_op_count')
 

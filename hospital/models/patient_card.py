@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 
 class HospitalPatientCard(models.Model):
     _name = "hospital.patient.card"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Hospital Patient Card"
 
     patient_name = fields.Many2one('res.partner', string='Patient Name',
@@ -46,8 +47,3 @@ class HospitalPatientCard(models.Model):
             d1 = datetime.strptime(dob, '%Y-%m-%d')
             d2 = date.today()
             self.age = relativedelta(d2, d1).years
-
-
-
-
-

@@ -5,3 +5,4 @@ access_hospital_consult,access.hospital.consult,model_hospital_consult,,1,1,1,1
 access_hospital_disease,access.hospital.disease,model_hospital_disease,,1,1,1,1
 access_consult_prescription_lines,access.consult.prescription.lines,model_consult_prescription_lines,,1,1,1,1
 access_hospital_appointment,access.hospital.appointment,model_hospital_appointment,,1,1,1,1
+access_patient_report_wizard,access.patient.report.wizard,model_patient_report_wizard,,1,1,1,1
