@@ -28,7 +28,7 @@ class ConsultPrescriptionLines(models.Model):
     _name = "consult.prescription.lines"
     _description = "Consultation Prescription Lines"
 
-    name = fields.Char(string='Medicine')
+    name = fields.Many2one('hospital.medicine', string='Medicine', required=True)
     consult_id = fields.Many2one('hospital.consult', string='Consult')
     dose = fields.Integer(string='Dose')
     days = fields.Integer(string='Days')

@@ -4,4 +4,5 @@ from . import op
 from . import consult
 from . import doctor_view
 from . import disease
+from . import medicine
 from . import appointment
