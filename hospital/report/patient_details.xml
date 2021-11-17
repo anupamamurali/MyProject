@@ -8,30 +8,100 @@
                     <div class="text-center">
                         <h2>Medical Report</h2>
                     </div>
-                    <div>
-                        <h3>
-                            <table>
-                                <tr>
-                                    <td>
-                                        <t t-if="form_data.get('patient_id')">
-                                            <t t-esc="form_data['patient_id'][1]"/>
-                                            <t t-esc="form_data['patient_name'][1]"/>
-                                        </t>
-                                    </td>
-                                </tr>
-                            </table>
-                        </h3>
-                    </div>
+                    <br/>
                     <table>
                         <tr>
-                            <td>Patient</td>
-                            <td>:</td>
                             <td>
-                                <t t-if="form_data.get('patient_id')">
-                                    <t t-esc="form_data['patient_id'][1]"/>
+                                <t t-if="form_data.get('patient_card')">
+                                    <h4>
+                                        <t t-esc="form_data['patient_card'][1]"/>
+                                        <t t-esc="form_data['patient_name'][1]"/>
+                                    </h4>
                                 </t>
                             </td>
                         </tr>
+                        <tr>
+                            <td>Doctor</td>
+                            <td>:</td>
+                            <td>
+                                <t t-if="form_data.get('doctor')">
+                                    <t t-esc="form_data['doctor'][1]"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date From</td>
+                            <td>:</td>
+                            <td>
+                                <t t-if="form_data.get('date_from')">
+                                    <t t-esc="form_data['date_from']"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date To</td>
+                            <td>:</td>
+                            <td>
+                                <t t-if="form_data.get('date_to')">
+                                    <t t-esc="form_data['date_to']"/>
+                                </t>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table class="table table-bordered mt32">
+                        <thead>
+                            <tr>
+                                <th name="th_slno" class="text-left">
+                                    <span>SL.No</span>
+                                </th>
+                                <th name="th_op" class="text-left">
+                                    <span>OP</span>
+                                </th>
+                                <th name="th_patient" class="text-left">
+                                    <span>Patient Name</span>
+                                </th>
+                                <th name="th_date" class="text-left">
+                                    <span>Date</span>
+                                </th>
+                                <th name="th_doctor" class="text-left">
+                                    <span>Doctor</span>
+                                </th>
+                                <th name="th_depart" class="text-left">
+                                    <span>Department</span>
+                                </th>
+                                <th name="th_disease" class="text-left">
+                                    <span>Disease</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <t t-set="op_count" t-value="0"/>
+                        <t t-foreach="op" t-as="line">
+                            <t t-set="op_count" t-value="op_count + 1"/>
+                            <tr>
+                                <td>
+                                    <span t-esc="op_count"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['name']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['patient_name'][1]"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['doctor'][1]"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['department'][1]"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['disease'][1]"/>
+                                </td>
+                            </tr>
+                        </t>
                     </table>
                 </div>
             </t>

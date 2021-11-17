@@ -10,11 +10,13 @@
         'contacts',
         'base',
         'account',
-        'mail'
+        'mail',
+        'report_xlsx'
     ],
     'data': [
         'security/ir.model.access.csv',
         'data/data.xml',
+        'data/op_sequence.xml',
         'wizard/patient_report_view.xml',
         'report/report.xml',
         'report/patient_details.xml',

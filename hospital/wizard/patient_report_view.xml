@@ -7,19 +7,20 @@
             <form string="Patient Report">
                 <group>
                     <group>
-                        <field name="patient_id"/>
+                        <field name="patient_card"/>
                         <field name="patient_name"/>
                         <field name="doctor"/>
                         <field name="department"/>
                     </group>
                     <group>
                         <field name="disease"/>
-                        <field name="from_date"/>
-                        <field name="to_date"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
                     </group>
                 </group>
                 <footer>
-                    <button name="create_patient_report" type="object" string="Print" class="btn-primary"/>
+                    <button name="create_patient_report" type="object" string="Print PDF" class="btn-primary"/>
+                    <button name="create_patient_excel_report" type="object" string="Print Excel" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>

@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 from datetime import datetime
 
 
@@ -8,7 +8,9 @@ class HospitalOP(models.Model):
 
     patient_card = fields.Many2one('hospital.patient.card',
                                    string='Patient Card', required=True)
-    name = fields.Many2one(string='Patient Name',
+    name = fields.Char(string='OP Reference', required=True, copy=False,
+                       readonly=True, default=lambda self: 'New')
+    patient_name = fields.Many2one(string='Patient Name',
                            related='patient_card.patient_name')
     age = fields.Integer(string='Age', related='patient_card.age')
     gender = fields.Selection(related='patient_card.gender')
@@ -18,11 +20,22 @@ class HospitalOP(models.Model):
                              domain="[('job_position','=','Doctor')]")
     department = fields.Many2one(string='Department',
                                  related='doctor.department_id')
+    disease = fields.Many2one('hospital.disease', string='Disease',
+                              required=True)
     currency_id = fields.Many2one('res.currency', string='Currency')
     fee = fields.Monetary(string='Fee', related='doctor.fee')
     state = fields.Selection([('draft', 'Draft'), ('op', 'OP')],
                              string='Status', default='draft')
     token = fields.Char(string='Token', readonly=True)
+
+    @api.model
+    def create(self, vals):
+        """Sequence Generation"""
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code(
+                'hospital.op') or 'New'
+        res = super(HospitalOP, self).create(vals)
+        return res
 
     def action_confirm(self):
         self.state = 'op'
@@ -43,14 +56,12 @@ class HospitalOP(models.Model):
     def action_create_invoice(self):
         invoice = self.env['account.move'].create({
            'move_type': 'out_invoice',
-           'ref': self.patient_card.id,
-           'partner_id': self.name,
+           'partner_id': self.patient_name,
            'state': 'draft',
            'invoice_date': datetime.today(),
-           'date': datetime.today(),
-           'invoice_line_ids': [0, 0, {
+           'invoice_line_ids': [(0, 0, {
                 'name': 'OP',
                 'quantity': 1,
                 'price_unit': self.fee
-           }]
+           })]
         })
