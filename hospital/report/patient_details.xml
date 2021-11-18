@@ -56,7 +56,7 @@
                                     <span>SL.No</span>
                                 </th>
                                 <th name="th_op" class="text-left">
-                                    <span>OP</span>
+                                    <span>OP Reference</span>
                                 </th>
                                 <th name="th_patient" class="text-left">
                                     <span>Patient Name</span>

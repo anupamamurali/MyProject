@@ -1,5 +1,5 @@
-from odoo import api, fields, models
-from datetime import date, datetime
+from odoo import fields, models
+from datetime import datetime
 
 
 class HospitalConsult(models.Model):

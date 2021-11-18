@@ -45,7 +45,28 @@ class PatientReportWizard(models.TransientModel):
         return self.env.ref('hospital.action_report_patient').report_action(self, data=data)
 
     def create_patient_excel_report(self):
+        domain = []
+        patient_card = self.patient_card
+        if patient_card:
+            domain += [('patient_card', '=', patient_card.id)]
+        date_from = self.date_from
+        if date_from:
+            domain += [('date', '>=', date_from)]
+        date_to = self.date_to
+        if date_from:
+            domain += [('date', '<=', date_to)]
+        doctor = self.doctor
+        if doctor:
+            domain += [('doctor', '=', doctor.id)]
+        department = self.department
+        if department:
+            domain += [('department', '=', department.id)]
+        disease = self.disease
+        if disease:
+            domain += [('disease', '=', disease.id)]
+        op = self.env['hospital.op'].search_read(domain)
         data = {
+            'op': op,
             'form_data': self.read()[0]
         }
         return self.env.ref('hospital.report_patient_xlsx').report_action(self, data=data)
