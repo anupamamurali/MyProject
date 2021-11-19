@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record model="ir.ui.view" id="config_settings_sale">
-        <field name="name">res.config.settings.view.form.inherit.sale.frequent</field>
+    <record id="res_config_settings_vie_form_sale" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale.discount</field>
         <field name="model">res.config.settings</field>
         <field name="priority" eval="10"/>
-        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-             <xpath expr="//div[@data-key='sale_management']//field[@name='group_discount_per_so_line']"
+             <xpath expr="//div[@data-key='sale_management']/div[hasclass('o_settings_container')][2]/div[hasclass('o_setting_box')][2]"
                     position="after">
-                 <div class="row mt16 o_setting_box">
-                     <div class="col-12 col-lg-6 o_setting_box">
-                         <div class="o_setting_left_pane"/>
-                         <div class="o_setting_right_pane" attrs="{'invisible': [('group_discount_per_so_line', '=', False)]}">
-                             <span class="o_form_label">Discount Limit</span>
-                             <div class="text-muted content-group mt16">
-                                 <field name="max_disc_limit" class="oe_inline" force_save="1"/>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
+                <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="monthly_discount"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="monthly_discount"/>
+                        <div class="content-group" attrs="{'invisible': [('monthly_discount', '=', False)]}">
+                            <div class="row mt16">
+                                <label for="max_disc_limit" class="col-lg-4 o_light_label"/>
+                                <field name="max_disc_limit"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
              </xpath>
         </field>
     </record>
