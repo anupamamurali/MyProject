@@ -21,14 +21,14 @@ class ReportPatientXls(models.AbstractModel):
         form_data = data['form_data']
         patient_id = form_data['patient_card'][1]
         patient_name = form_data['patient_name'][1]
-        patient_reference = patient_id + patient_name
+        patient_reference = patient_id + '  ' + patient_name
         sheet.merge_range('C3:E3', patient_reference, bold)
         doctor = 'Doctor : ' + form_data['doctor'][1]
         sheet.merge_range('C5:E5', doctor)
         date_from = 'Date From : ' + form_data['date_from']
         date_to = 'Date To :' + form_data['date_to']
-        date = date_from + '          ' + date_to
-        sheet.merge_range('C6:E6', date)
+        sheet.merge_range('C6:D6', date_from)
+        sheet.merge_range('C7:D7', date_to)
         row = 8
         col = 0
         sheet.write(row, col, 'SL.No', bold)
