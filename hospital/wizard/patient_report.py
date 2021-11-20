@@ -17,57 +17,61 @@ class PatientReportWizard(models.TransientModel):
     date_to = fields.Date(string='To Date')
 
     def create_patient_report(self):
-        domain = []
-        patient_card = self.patient_card
-        if patient_card:
-            domain += [('patient_card', '=', patient_card.id)]
-        date_from = self.date_from
-        if date_from:
-            domain += [('date', '>=', date_from)]
-        date_to = self.date_to
-        if date_from:
-            domain += [('date', '<=', date_to)]
-        doctor = self.doctor
-        if doctor:
-            domain += [('doctor', '=', doctor.id)]
-        department = self.department
-        if department:
-            domain += [('department', '=', department.id)]
-        disease = self.disease
-        if disease:
-            domain += [('disease', '=', disease.id)]
-        op = self.env['hospital.op'].search_read(domain)
+        args = {
+            'patient_card': self.patient_card.id,
+            'date_from': self.date_from,
+            'date_to': self.date_to,
+            'doctor': self.doctor.id,
+            'disease': self.disease.id
+        }
+        self.env.cr.execute("""SELECT o.name as op,
+                                      r.display_name as patient_name,
+                                      o.date as date,
+                                      e.name as doctor,
+                                      de.name as department,
+                                      d.name as disease FROM hospital_op o
+        LEFT OUTER JOIN hospital_patient_card p ON(o.patient_card=p.id)
+        LEFT OUTER JOIN res_partner r ON(o.patient_name=r.id)
+        LEFT OUTER JOIN hr_employee e ON(o.doctor=e.id)
+        LEFT OUTER JOIN hr_department de ON(o.department=de.id)
+        LEFT OUTER JOIN hospital_disease d ON(o.disease=d.id)
+        WHERE (o.patient_card = %(patient_card)s AND o.date BETWEEN
+        %(date_from)s AND %(date_to)s AND o.doctor = %(doctor)s AND
+        o.disease = %(disease)s )""", args)
+        result = self.env.cr.dictfetchall()
+        print(result)
         data = {
             'form_data': self.read()[0],
-            'op': op
+            'op': result
         }
-        print(data)
         return self.env.ref('hospital.action_report_patient').report_action(self, data=data)
 
     def create_patient_excel_report(self):
-        domain = []
-        patient_card = self.patient_card
-        if patient_card:
-            domain += [('patient_card', '=', patient_card.id)]
-        date_from = self.date_from
-        if date_from:
-            domain += [('date', '>=', date_from)]
-        date_to = self.date_to
-        if date_from:
-            domain += [('date', '<=', date_to)]
-        doctor = self.doctor
-        if doctor:
-            domain += [('doctor', '=', doctor.id)]
-        department = self.department
-        if department:
-            domain += [('department', '=', department.id)]
-        disease = self.disease
-        if disease:
-            domain += [('disease', '=', disease.id)]
-        op = self.env['hospital.op'].search_read(domain)
+        args = {
+            'patient_card': self.patient_card.id,
+            'date_from': self.date_from,
+            'date_to': self.date_to,
+            'doctor': self.doctor.id,
+            'disease': self.disease.id
+        }
+        self.env.cr.execute("""SELECT o.name as op,
+                                              r.display_name as patient_name,
+                                              o.date as date,
+                                              e.name as doctor,
+                                              de.name as department,
+                                              d.name as disease FROM hospital_op o
+                LEFT OUTER JOIN hospital_patient_card p ON(o.patient_card=p.id)
+                LEFT OUTER JOIN res_partner r ON(o.patient_name=r.id)
+                LEFT OUTER JOIN hr_employee e ON(o.doctor=e.id)
+                LEFT OUTER JOIN hr_department de ON(o.department=de.id)
+                LEFT OUTER JOIN hospital_disease d ON(o.disease=d.id)
+                WHERE (o.patient_card = %(patient_card)s AND o.date BETWEEN
+                %(date_from)s AND %(date_to)s AND o.doctor = %(doctor)s AND
+                o.disease = %(disease)s )""", args)
+        result = self.env.cr.dictfetchall()
         data = {
-            'op': op,
-            'form_data': self.read()[0]
+            'form_data': self.read()[0],
+            'op': result
         }
         return self.env.ref('hospital.report_patient_xlsx').report_action(self, data=data)
 

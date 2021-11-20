@@ -11,7 +11,7 @@ class HospitalOP(models.Model):
     name = fields.Char(string='OP Reference', required=True, copy=False,
                        readonly=True, default=lambda self: 'New')
     patient_name = fields.Many2one(string='Patient Name',
-                           related='patient_card.patient_name')
+                           related='patient_card.patient_name', store=True)
     age = fields.Integer(string='Age', related='patient_card.age')
     gender = fields.Selection(related='patient_card.gender')
     blood_group = fields.Selection(related='patient_card.blood_group')
@@ -19,7 +19,7 @@ class HospitalOP(models.Model):
     doctor = fields.Many2one('hr.employee',
                              domain="[('job_position','=','Doctor')]")
     department = fields.Many2one(string='Department',
-                                 related='doctor.department_id')
+                                 related='doctor.department_id', store=True)
     disease = fields.Many2one('hospital.disease', string='Disease',
                               required=True)
     currency_id = fields.Many2one('res.currency', string='Currency')

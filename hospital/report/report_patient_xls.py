@@ -7,7 +7,7 @@ class ReportPatientXls(models.AbstractModel):
     _name = 'report.hospital.report_patient_xls'
     _inherit = 'report.report_xlsx.abstract'
 
-    def generate_xlsx_report(self, workbook, data, patients):
+    def generate_xlsx_report(self, workbook, data, patents):
         sheet = workbook.add_worksheet('op')
         bold = workbook.add_format({'bold': True})
         sheet.set_column('A:A', 6)
@@ -43,9 +43,9 @@ class ReportPatientXls(models.AbstractModel):
             row += 1
             count += 1
             sheet.write(row, col, count)
-            sheet.write(row, col + 1, op['name'])
-            sheet.write(row, col + 2, op['patient_name'][1])
+            sheet.write(row, col + 1, op['op'])
+            sheet.write(row, col + 2, op['patient_name'])
             sheet.write(row, col + 3, op['date'])
-            sheet.write(row, col + 4, op['doctor'][1])
-            sheet.write(row, col + 5, op['department'][1])
-            sheet.write(row, col + 6, op['disease'][1])
+            sheet.write(row, col + 4, op['doctor'])
+            sheet.write(row, col + 5, op['department'])
+            sheet.write(row, col + 6, op['disease'])
