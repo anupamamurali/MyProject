@@ -1,1 +1,1 @@
-from . import spanish_name
+from . import spanish_product

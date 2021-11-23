@@ -11,12 +11,13 @@
         'product'
     ],
     'data': [
-        'views/spanish_name.xml'
+        'views/spanish_name.xml',
+        'views/assets.xml'
     ],
-    'demo': [
+    'demo': [],
+    'qweb': [
         'static/src/xml/product_spanish.xml'
     ],
-    'qweb': [],
     'installable': True,
     'application': True,
     'auto_install': False,

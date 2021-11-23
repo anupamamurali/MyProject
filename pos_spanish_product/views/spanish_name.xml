@@ -3,12 +3,11 @@
     <record id="product_template_inherit_spanish_name" model="ir.ui.view">
         <field name="name">spanish.product</field>
         <field name="model">product.product</field>
-        <field name="priority" eval="10"/>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
-             <field name="available_in_pos" position="after">
+            <xpath expr="//field[@name='available_in_pos']" position="after">
                 <field name="spanish_name"/>
-             </field>
+            </xpath>
         </field>
     </record>
 </odoo>

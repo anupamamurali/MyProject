@@ -1,14 +1,15 @@
-odoo.define('pos_spanish_product.spanish_name', function(require)) {
+odoo.define('pos_spanish_product.spanish_name', function(require) {
 "use strict";
+console.log("working");
 var models = require('point_of_sale.models');
-var _super_orderline = models.Orderline.prototype;
+var _super_product = models.PosModel.prototype;
 console.log("models",models);
-models.load_fields('product.product', 'spanish_name');
-models.Orderline = models.Orderline.extend({
-    initialize: function(attr,options) {
-         var line = _super_orderline.initialize.apply(this.arguments);
-         this.spanish_name = this.product.spanish_name;
-         console.log("spanish_name", this.spanish_name);
+models.PosModel = models.PosModel.extend({
+    initialize: function(session, attributes) {
+         var self = this;
+         models.load_fields('product.product', ['spanish_name']);
+         _super_product.initialize.apply(this, arguments);
+         console.log("hi")
          }
-    })
+    });
 });
