@@ -16,7 +16,8 @@
     ],
     'demo': [],
     'qweb': [
-        'static/src/xml/product_spanish.xml'
+        'static/src/xml/product_spanish.xml',
+        'static/src/xml/receipt_spanish.xml'
     ],
     'installable': True,
     'application': True,

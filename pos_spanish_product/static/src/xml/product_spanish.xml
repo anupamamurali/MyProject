@@ -4,9 +4,11 @@
        t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('product-name')]" position="inside">
             <t t-if="props.product.spanish_name">
-                <div>
+                <span> (</span>
+                <span style="background-color:rgb(204,204,204);">
                     <t t-esc="props.product.spanish_name"/>
-                </div>
+                </span>
+                <span>) </span>
             </t>
         </xpath>
     </t>

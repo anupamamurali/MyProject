@@ -4,6 +4,8 @@
         <xpath expr="." position="inside">
             <script type="text/javascript"
                     src="/pos_spanish_product/static/src/js/pos_spanish_product.js"/>
+            <script type="text/javascript"
+                    src="/pos_spanish_product/static/src/js/pos_spanish_receipt.js"/>
         </xpath>
     </template>
 </odoo>
