@@ -30,22 +30,25 @@ class SaleOrderInherit(models.Model):
     _inherit = 'sale.order'
 
     def action_confirm(self):
-        year = self.date_order.year
-        month = self.date_order.month
-        days_count = (calendar.monthrange(year, month))[1]
-        records = self.env['sale.order'].search([('date_order',
+        monthly_discount = self.env['ir.config_parameter'].sudo().get_param('discount_limit.monthly_discount') or False
+        if monthly_discount:
+            year = self.date_order.year
+            month = self.date_order.month
+            days_count = (calendar.monthrange(year, month))[1]
+            print((datetime.today() + relativedelta(day=days_count)).strftime('%Y-%m-%d'))
+            records = self.env['sale.order'].search([('date_order',
                   '<=', (datetime.today() + relativedelta(day=days_count)).strftime('%Y-%m-%d')),
                      ('date_order', '>=', (datetime.today()-relativedelta(day=1)).strftime('%Y-%m-%d'))])
-        total = 0
-        for rec in records:
-            for line in rec.order_line:
-                unit_price = line.price_unit
-                total_price = unit_price * line.product_uom_qty
-                sub_total = line.price_subtotal
-                discount = total_price - sub_total
-                total += discount
-        limit = self.env['ir.config_parameter'].sudo().get_param('discount_limit.max_disc_limit') or False
-        if total > float(limit):
-            raise UserError("Warning...! Discount exceed the limit")
+            total = 0
+            for rec in records:
+                for line in rec.order_line:
+                    unit_price = line.price_unit
+                    total_price = unit_price * line.product_uom_qty
+                    sub_total = line.price_subtotal
+                    discount = total_price - sub_total
+                    total += discount
+            limit = self.env['ir.config_parameter'].sudo().get_param('discount_limit.max_disc_limit') or False
+            if total > float(limit):
+                raise UserError("Warning...! Discount exceed the limit")
         result = super(SaleOrderInherit, self).action_confirm()
         return result

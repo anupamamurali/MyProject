@@ -14,6 +14,9 @@
                     </div>
                     <div class="o_setting_right_pane">
                         <label for="monthly_discount"/>
+                        <div class="text-muted">
+                            To set monthly discount limit for sale order
+                        </div>
                         <div class="content-group" attrs="{'invisible': [('monthly_discount', '=', False)]}">
                             <div class="row mt16">
                                 <label for="max_disc_limit" class="col-lg-4 o_light_label"/>
