@@ -7,7 +7,7 @@ class ReportPatientXls(models.AbstractModel):
     _name = 'report.hospital.report_patient_xls'
     _inherit = 'report.report_xlsx.abstract'
 
-    def generate_xlsx_report(self, workbook, data, patents):
+    def generate_xlsx_report(self, workbook, data, patients):
         sheet = workbook.add_worksheet('op')
         bold = workbook.add_format({'bold': True})
         sheet.set_column('A:A', 6)
@@ -26,7 +26,7 @@ class ReportPatientXls(models.AbstractModel):
         doctor = 'Doctor : ' + form_data['doctor'][1]
         sheet.merge_range('C5:E5', doctor)
         date_from = 'Date From : ' + form_data['date_from']
-        date_to = 'Date To :' + form_data['date_to']
+        date_to = 'Date To : ' + form_data['date_to']
         sheet.merge_range('C6:D6', date_from)
         sheet.merge_range('C7:D7', date_to)
         row = 8

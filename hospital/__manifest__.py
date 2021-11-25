@@ -19,6 +19,7 @@
         'wizard/patient_report_view.xml',
         'report/report.xml',
         'report/patient_details.xml',
+        # 'report/patient_details_pdf.xml',
         'views/partner_view.xml',
         'views/doctor_view.xml',
         'views/patient_card.xml',

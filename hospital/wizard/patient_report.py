@@ -44,7 +44,8 @@ class PatientReportWizard(models.TransientModel):
             'form_data': self.read()[0],
             'op': result
         }
-        return self.env.ref('hospital.action_report_patient').report_action(self, data=data)
+        return self.env.ref('hospital.action_report_patient').report_action(
+            self, data=data)
 
     def create_patient_excel_report(self):
         args = {
@@ -55,11 +56,11 @@ class PatientReportWizard(models.TransientModel):
             'disease': self.disease.id
         }
         self.env.cr.execute("""SELECT o.name as op,
-                                              r.display_name as patient_name,
-                                              o.date as date,
-                                              e.name as doctor,
-                                              de.name as department,
-                                              d.name as disease FROM hospital_op o
+                                      r.display_name as patient_name,
+                                      o.date as date,
+                                      e.name as doctor,
+                                      de.name as department,
+                                      d.name as disease FROM hospital_op o
                 LEFT OUTER JOIN hospital_patient_card p ON(o.patient_card=p.id)
                 LEFT OUTER JOIN res_partner r ON(o.patient_name=r.id)
                 LEFT OUTER JOIN hr_employee e ON(o.doctor=e.id)
@@ -74,6 +75,3 @@ class PatientReportWizard(models.TransientModel):
             'op': result
         }
         return self.env.ref('hospital.report_patient_xlsx').report_action(self, data=data)
-
-
-

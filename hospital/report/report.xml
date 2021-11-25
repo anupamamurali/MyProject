@@ -9,13 +9,21 @@
         <field name="binding_model_id" ref="model_patient_report_wizard"/>
         <field name="binding_type">report</field>
     </record>
+    <record id="report_all_patient_details" model="ir.actions.report">
+        <field name="name">Patient Details</field>
+        <field name="model">hospital.patient.card</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hospital.report_all_patient_details</field>
+        <field name="report_file">hospital.report_all_patient_details</field>
+        <field name="binding_model_id" ref="model_hospital_patient_card"/>
+        <field name="binding_type">report</field>
+    </record>
     <record id="report_patient_xlsx" model="ir.actions.report">
         <field name="name">Patient Details Excel</field>
         <field name="model">patient.report.wizard</field>
         <field name="report_type">xlsx</field>
         <field name="report_name">hospital.report_patient_xls</field>
         <field name="report_file">hospital.report_patient_xls</field>
-      <!--  <field name="binding_model_id" ref="model_patient_report_wizard"/> -->
         <field name="binding_type">report</field>
     </record>
 </odoo>
