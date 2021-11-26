@@ -12,10 +12,10 @@
                     <table>
                         <tr>
                             <td>
-                                <t t-if="form_data.get('patient_card')">
+                                <t t-if="form_data.get('patient_card_id')">
                                     <h4>
-                                        <t t-esc="form_data['patient_card'][1]"/>
-                                        <t t-esc="form_data['patient_name'][1]"/>
+                                        <t t-esc="form_data['patient_card_id'][1]"/>
+                                        <t t-esc="form_data['patient_name_id'][1]"/>
                                     </h4>
                                 </t>
                             </td>

@@ -5,24 +5,24 @@ class PatientReportWizard(models.TransientModel):
     _name = "patient.report.wizard"
     _description = "Patient Report Wizard"
 
-    patient_card = fields.Many2one('hospital.patient.card', string='Patient Id')
-    patient_name = fields.Many2one(string='Patient Name',
-                                   related='patient_card.patient_name')
-    doctor = fields.Many2one('hr.employee',
+    patient_card_id = fields.Many2one('hospital.patient.card', string='Patient Id')
+    patient_name_id = fields.Many2one(string='Patient Name',
+                                   related='patient_card_id.patient_name')
+    doctor_id = fields.Many2one('hr.employee',
                              domain="[('job_position','=','Doctor')]")
-    department = fields.Many2one(string='Department',
-                                 related='doctor.department_id')
-    disease = fields.Many2one('hospital.disease', string='Disease')
+    department_id = fields.Many2one(string='Department',
+                                 related='doctor_id.department_id')
+    disease_id = fields.Many2one('hospital.disease', string='Disease')
     date_from = fields.Date(string='From Date')
     date_to = fields.Date(string='To Date')
 
     def create_patient_report(self):
         args = {
-            'patient_card': self.patient_card.id,
+            'patient_card': self.patient_card_id.id,
             'date_from': self.date_from,
             'date_to': self.date_to,
-            'doctor': self.doctor.id,
-            'disease': self.disease.id
+            'doctor': self.doctor_id.id,
+            'disease': self.disease_id.id
         }
         self.env.cr.execute("""SELECT o.name as op,
                                       r.display_name as patient_name,
@@ -49,11 +49,11 @@ class PatientReportWizard(models.TransientModel):
 
     def create_patient_excel_report(self):
         args = {
-            'patient_card': self.patient_card.id,
+            'patient_card': self.patient_card_id.id,
             'date_from': self.date_from,
             'date_to': self.date_to,
-            'doctor': self.doctor.id,
-            'disease': self.disease.id
+            'doctor': self.doctor_id.id,
+            'disease': self.disease_id.id
         }
         self.env.cr.execute("""SELECT o.name as op,
                                       r.display_name as patient_name,

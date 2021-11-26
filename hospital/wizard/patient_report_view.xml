@@ -7,13 +7,13 @@
             <form string="Patient Report">
                 <group>
                     <group>
-                        <field name="patient_card"/>
-                        <field name="patient_name"/>
-                        <field name="doctor"/>
-                        <field name="department"/>
+                        <field name="patient_card_id"/>
+                        <field name="patient_name_id"/>
+                        <field name="doctor_id"/>
+                        <field name="department_id"/>
                     </group>
                     <group>
-                        <field name="disease"/>
+                        <field name="disease_id"/>
                         <field name="date_from"/>
                         <field name="date_to"/>
                     </group>

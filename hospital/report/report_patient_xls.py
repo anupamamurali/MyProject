@@ -19,11 +19,11 @@ class ReportPatientXls(models.AbstractModel):
         sheet.set_column('G:G', 15)
         sheet.merge_range('D1:E1', 'MEDICAL REPORT', bold)
         form_data = data['form_data']
-        patient_id = form_data['patient_card'][1]
-        patient_name = form_data['patient_name'][1]
+        patient_id = form_data['patient_card_id'][1]
+        patient_name = form_data['patient_name_id'][1]
         patient_reference = patient_id + '  ' + patient_name
         sheet.merge_range('C3:E3', patient_reference, bold)
-        doctor = 'Doctor : ' + form_data['doctor'][1]
+        doctor = 'Doctor : ' + form_data['doctor_id'][1]
         sheet.merge_range('C5:E5', doctor)
         date_from = 'Date From : ' + form_data['date_from']
         date_to = 'Date To : ' + form_data['date_to']
