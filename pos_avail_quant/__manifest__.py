@@ -12,7 +12,8 @@
         'stock'
     ],
     'data': [
-        'views/pos_location.xml'
+        'views/pos_location.xml',
+        'views/assets.xml'
     ],
     'demo': [],
     'qweb': [],
