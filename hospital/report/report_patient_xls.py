@@ -9,6 +9,10 @@ class ReportPatientXls(models.AbstractModel):
 
     def generate_xlsx_report(self, workbook, data, patients):
         sheet = workbook.add_worksheet('op')
+        head = workbook.add_format(
+            {'align': 'center', 'bold': True, 'font_size': '14px'})
+        col_head = workbook.add_format(
+            {'align': 'center', 'bold': True, 'font_size': '12px'})
         bold = workbook.add_format({'bold': True})
         sheet.set_column('A:A', 6)
         sheet.set_column('B:B', 13)
@@ -17,7 +21,7 @@ class ReportPatientXls(models.AbstractModel):
         sheet.set_column('E:E', 22)
         sheet.set_column('F:F', 12)
         sheet.set_column('G:G', 15)
-        sheet.merge_range('D1:E1', 'MEDICAL REPORT', bold)
+        sheet.merge_range('D1:E1', 'MEDICAL REPORT', head)
         form_data = data['form_data']
         patient_id = form_data['patient_card_id'][1]
         patient_name = form_data['patient_name_id'][1]
@@ -31,13 +35,13 @@ class ReportPatientXls(models.AbstractModel):
         sheet.merge_range('C7:D7', date_to)
         row = 8
         col = 0
-        sheet.write(row, col, 'SL.No', bold)
-        sheet.write(row, col+1, 'OP Reference', bold)
-        sheet.write(row, col+2, 'Patient name', bold)
-        sheet.write(row, col+3, 'Date', bold)
-        sheet.write(row, col+4, 'Doctor', bold)
-        sheet.write(row, col+5, 'Department', bold)
-        sheet.write(row, col+6, 'Disease', bold)
+        sheet.write(row, col, 'SL.No', col_head)
+        sheet.write(row, col+1, 'OP Reference', col_head)
+        sheet.write(row, col+2, 'Patient name', col_head)
+        sheet.write(row, col+3, 'Date', col_head)
+        sheet.write(row, col+4, 'Doctor', col_head)
+        sheet.write(row, col+5, 'Department', col_head)
+        sheet.write(row, col+6, 'Disease', col_head)
         count = 0
         for op in data['op']:
             row += 1
