@@ -16,7 +16,9 @@
         'views/assets.xml'
     ],
     'demo': [],
-    'qweb': [],
+    'qweb': [
+        'static/src/xml/prod_avail.xml'
+    ],
     'installable': True,
     'application': True,
     'auto_install': False,
