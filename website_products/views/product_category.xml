@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="partner_view_form">
+        <field name="name">partner.view.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="website" position="after">
+                <field name="product_ids" widget="many2many_tags" placeholder="Products..."/>
+            </field>
+            <field name="product_ids" position="before">
+                <field name="pro_cat_ids" widget="many2many_tags" placeholder="Product Categories..."/>
+            </field>
+        </field>
+    </record>
+</odoo>
