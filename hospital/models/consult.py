@@ -12,7 +12,7 @@ class HospitalConsult(models.Model):
                            related='patient_card.patient_name')
     consult_type = fields.Selection([('op', 'OP'), ('ip', 'IP')])
     doctor = fields.Many2one('hr.employee',
-                             domain="[('job_position','=','Doctor')]")
+                             domain="[('is_doctor','=',True)]")
     department = fields.Many2one(string='Department',
                                  related='doctor.department_id')
     date = fields.Date(string='Date', default=datetime.today())

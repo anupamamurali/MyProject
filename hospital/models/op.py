@@ -17,7 +17,7 @@ class HospitalOP(models.Model):
     blood_group = fields.Selection(related='patient_card.blood_group')
     date = fields.Date(string='Date', default=datetime.today())
     doctor = fields.Many2one('hr.employee',
-                             domain="[('job_position','=','Doctor')]")
+                             domain="[('is_doctor','=',True)]")
     department = fields.Many2one(string='Department',
                                  related='doctor.department_id', store=True)
     disease = fields.Many2one('hospital.disease', string='Disease',

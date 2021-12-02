@@ -33,6 +33,7 @@
                             <field name="doctor"/>
                             <field name="department"/>
                             <field name="disease"/>
+                            <field name="currency_id"/>
                             <field name="fee"/>
                             <field name="token"/>
                         </group>

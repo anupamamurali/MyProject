@@ -9,7 +9,7 @@ class PatientReportWizard(models.TransientModel):
     patient_name_id = fields.Many2one(string='Patient Name',
                                    related='patient_card_id.patient_name')
     doctor_id = fields.Many2one('hr.employee',
-                             domain="[('job_position','=','Doctor')]")
+                             domain="[('is_doctor','=',True)]")
     department_id = fields.Many2one(string='Department',
                                  related='doctor_id.department_id')
     disease_id = fields.Many2one('hospital.disease', string='Disease')

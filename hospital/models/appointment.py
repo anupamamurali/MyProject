@@ -13,7 +13,7 @@ class HospitalAppointment(models.Model):
                            related='patient_card.patient_name')
     date = fields.Date(string='Date', default=datetime.today())
     doctor = fields.Many2one('hr.employee',
-                             domain="[('job_position','=','Doctor')]")
+                             domain="[('is_doctor','=',True)]")
     department = fields.Many2one(string='Department',
                                  related='doctor.department_id')
     state = fields.Selection([('draft', 'Draft'),

@@ -5,14 +5,12 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-            <field name="department_id" position="after">
-                <field name="job_position"/>
+            <field name="job_id" position="before">
+                <field name="is_doctor"/>
             </field>
-            <field name="coach_id" position="after">
-                <field name="currency_id" attrs="{'invisible':[('job_position', '!=', 'Doctor')]}"/>
-            </field>
-            <field name="currency_id" position="after">
-                <field name="fee" attrs="{'invisible':[('job_position', '!=', 'Doctor')]}"/>
+            <field name="job_id" position="after">
+                <field name="currency_id" attrs="{'invisible':[('is_doctor', '=', False)]}"/>
+                <field name="fee" attrs="{'invisible':[('is_doctor', '=', False)]}"/>
             </field>
         </field>
     </record>
