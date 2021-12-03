@@ -9,6 +9,7 @@
     'depends': [
         'website',
         'website_sale',
+        'product',
         'base',
         'contacts'
     ],
