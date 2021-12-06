@@ -4,6 +4,7 @@ from odoo.addons.http_routing.models.ir_http import slug
 from odoo.addons.website.controllers.main import QueryURL
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 from werkzeug.exceptions import Forbidden, NotFound
+from odoo.osv import expression
 
 class TableCompute(object):
 
@@ -71,6 +72,41 @@ class TableCompute(object):
             rows[col] = [r[1] for r in cols if r[1]]
 
         return rows
+    def _get_search_domain(self, search, new_categs, attrib_values, search_in_description=True):
+        print("function")
+        domains = [request.website.sale_product_domain()]
+        if search:
+            for srch in search.split(" "):
+                subdomains = [
+                    [('name', 'ilike', srch)],
+                    [('product_variant_ids.default_code', 'ilike', srch)]
+                ]
+                if search_in_description:
+                    subdomains.append([('description', 'ilike', srch)])
+                    subdomains.append([('description_sale', 'ilike', srch)])
+                domains.append(expression.OR(subdomains))
+
+        if new_categs:
+            domains.append([('public_categ_ids', 'child_of', new_categs)])
+
+        if attrib_values:
+            attrib = None
+            ids = []
+            for value in attrib_values:
+                if not attrib:
+                    attrib = value[0]
+                    ids.append(value[1])
+                elif value[0] == attrib:
+                    ids.append(value[1])
+                else:
+                    domains.append([('attribute_line_ids.value_ids', 'in', ids)])
+                    attrib = value[0]
+                    ids = [value[1]]
+            if attrib:
+                domains.append([('attribute_line_ids.value_ids', 'in', ids)])
+
+        return expression.AND(domains)
+
 
 class WebsiteSaleInherit(WebsiteSale):
     @http.route([
@@ -88,6 +124,7 @@ class WebsiteSaleInherit(WebsiteSale):
                 raise NotFound()
         else:
             category = Category
+        print(category)
 
         if ppg:
             try:
@@ -105,8 +142,22 @@ class WebsiteSaleInherit(WebsiteSale):
                          v]
         attributes_ids = {v[0] for v in attrib_values}
         attrib_set = {v[1] for v in attrib_values}
+        Product = request.env['product.template'].with_context(bin_size=True)
+        user_id = request.env.user
+        user_rec = request.env['res.partner'].search(
+            [('id', '=', user_id.partner_id.id)])
+        category_id = []
+        product_id = []
+        if user_rec.pro_cat_ids:
+            for rec in user_rec.pro_cat_ids:
+                category_id.append(rec.id)
+            new_categs = Category.search([('id', 'in', category_id)])
+        else:
+            new_categs = Category
+        print("new_categs=", new_categs)
 
         domain = self._get_search_domain(search, category, attrib_values)
+        print("domain=", domain)
 
         keep = QueryURL('/shop', category=category and int(category),
                         search=search, attrib=attrib_list,
@@ -122,20 +173,6 @@ class WebsiteSaleInherit(WebsiteSale):
             post["search"] = search
         if attrib_list:
             post['attrib'] = attrib_list
-
-        Product = request.env['product.template'].with_context(bin_size=True)
-        user_id = request.env.user
-        user_rec = request.env['res.partner'].search(
-            [('id', '=', user_id.partner_id.id)])
-        category_id = []
-        product_id = []
-        if user_rec.pro_cat_ids:
-            for rec in user_rec.pro_cat_ids:
-                category_id.append(rec.id)
-            new_categs = Category.search([('id', 'in', category_id)])
-        else:
-            new_categs = Category
-        print("new_categs=", new_categs)
         if user_rec.product_ids:
             for rec in user_rec.product_ids:
                 product_id.append(rec.id)
@@ -143,29 +180,34 @@ class WebsiteSaleInherit(WebsiteSale):
         else:
             new_products = Product
         print("new products=", new_products)
-        search_product = new_products
+        print("categories=", new_categs)
+        search_products = new_products.search(domain, order=self._get_search_order(post))
+        search_product = search_products.search([('public_categ_ids', 'child_of', new_categs.ids)])
         print("search product=", search_product)
         website_domain = request.website.website_domain()
         categs_domain = [('parent_id', '=', False)] + website_domain
+        print("categs_domain=", categs_domain)
         if search:
-            search_categories = Category.search([('product_tmpl_ids', 'in',
+            search_categories = Category.search([('product_ids', 'in',
                                                   search_product.ids)] + website_domain).parents_and_self
             categs_domain.append(('id', 'in', search_categories.ids))
         else:
             search_categories = Category
+        print("categs domain=", categs_domain)
         categs = Category.search(categs_domain)
         # print("categs=", categs)
+        print("search category=", search_categories)
 
         if category:
             url = "/shop/category/%s" % slug(category)
 
-        product_count = len(search_product)
+        product_count = len(new_products)
         print("product_count=", product_count)
         pager = request.website.pager(url=url, total=product_count, page=page,
                                       step=ppg, scope=7, url_args=post)
         offset = pager['offset']
-        new_products = search_product[offset: offset + ppg]
-        print("products=", new_products)
+        new_products = new_products[offset: offset + ppg]
+        print("3.products=", new_products)
 
         ProductAttribute = request.env['product.attribute']
         if new_products:
@@ -183,7 +225,7 @@ class WebsiteSaleInherit(WebsiteSale):
             else:
                 layout_mode = 'grid'
         print("new_new_products=", new_products)
-        print("category=", category)
+        print("last category=", category)
         values = {
             'search': search,
             'category': category,
