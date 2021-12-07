@@ -72,8 +72,11 @@ class TableCompute(object):
             rows[col] = [r[1] for r in cols if r[1]]
 
         return rows
-    def _get_search_domain(self, search, new_categs, attrib_values, search_in_description=True):
-        print("function")
+
+
+class WebsiteSaleInherit(WebsiteSale):
+    def _get_search_domain(self, search, category, attrib_values, search_in_description=True):
+        print("in function")
         domains = [request.website.sale_product_domain()]
         if search:
             for srch in search.split(" "):
@@ -86,8 +89,8 @@ class TableCompute(object):
                     subdomains.append([('description_sale', 'ilike', srch)])
                 domains.append(expression.OR(subdomains))
 
-        if new_categs:
-            domains.append([('public_categ_ids', 'child_of', new_categs)])
+        if category:
+            domains.append([('public_categ_ids', 'child_of', int(category))])
 
         if attrib_values:
             attrib = None
@@ -106,9 +109,6 @@ class TableCompute(object):
                 domains.append([('attribute_line_ids.value_ids', 'in', ids)])
 
         return expression.AND(domains)
-
-
-class WebsiteSaleInherit(WebsiteSale):
     @http.route([
         '''/shop''',
         '''/shop/page/<int:page>''',
@@ -124,7 +124,6 @@ class WebsiteSaleInherit(WebsiteSale):
                 raise NotFound()
         else:
             category = Category
-        print(category)
 
         if ppg:
             try:
@@ -154,10 +153,8 @@ class WebsiteSaleInherit(WebsiteSale):
             new_categs = Category.search([('id', 'in', category_id)])
         else:
             new_categs = Category
-        print("new_categs=", new_categs)
 
         domain = self._get_search_domain(search, category, attrib_values)
-        print("domain=", domain)
 
         keep = QueryURL('/shop', category=category and int(category),
                         search=search, attrib=attrib_list,
@@ -173,41 +170,38 @@ class WebsiteSaleInherit(WebsiteSale):
             post["search"] = search
         if attrib_list:
             post['attrib'] = attrib_list
+        search_product = []
         if user_rec.product_ids:
             for rec in user_rec.product_ids:
                 product_id.append(rec.id)
             new_products = Product.search([('id', 'in', product_id)])
+            if category:
+                search_product = new_products.search([('public_categ_ids', 'in', category.id)])
+                new_products = search_product
+            else:
+                search_product = new_products
         else:
             new_products = Product
-        print("new products=", new_products)
-        print("categories=", new_categs)
-        search_products = new_products.search(domain, order=self._get_search_order(post))
-        search_product = search_products.search([('public_categ_ids', 'child_of', new_categs.ids)])
-        print("search product=", search_product)
         website_domain = request.website.website_domain()
         categs_domain = [('parent_id', '=', False)] + website_domain
-        print("categs_domain=", categs_domain)
+
+        searching_product = search_product.search(domain,
+                                        order=self._get_search_order(post))
         if search:
             search_categories = Category.search([('product_ids', 'in',
-                                                  search_product.ids)] + website_domain).parents_and_self
+                                                  searching_product.ids)] + website_domain).parents_and_self
             categs_domain.append(('id', 'in', search_categories.ids))
         else:
             search_categories = Category
-        print("categs domain=", categs_domain)
-        categs = Category.search(categs_domain)
-        # print("categs=", categs)
-        print("search category=", search_categories)
 
         if category:
             url = "/shop/category/%s" % slug(category)
 
         product_count = len(new_products)
-        print("product_count=", product_count)
         pager = request.website.pager(url=url, total=product_count, page=page,
                                       step=ppg, scope=7, url_args=post)
         offset = pager['offset']
         new_products = new_products[offset: offset + ppg]
-        print("3.products=", new_products)
 
         ProductAttribute = request.env['product.attribute']
         if new_products:
@@ -224,8 +218,6 @@ class WebsiteSaleInherit(WebsiteSale):
                 layout_mode = 'list'
             else:
                 layout_mode = 'grid'
-        print("new_new_products=", new_products)
-        print("last category=", category)
         values = {
             'search': search,
             'category': category,
