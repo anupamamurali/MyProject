@@ -117,14 +117,15 @@ class PatientReportWizard(models.TransientModel):
             self, data=data)
 
     def create_patient_excel_report(self):
-        args = {
+        if self.patient_card_id and self.date_from and self.date_to and self.doctor_id and self.disease_id:
+            args = {
             'patient_card': self.patient_card_id.id,
             'date_from': self.date_from,
             'date_to': self.date_to,
             'doctor': self.doctor_id.id,
             'disease': self.disease_id.id
-        }
-        self.env.cr.execute("""SELECT o.name as op,
+            }
+            self.env.cr.execute("""SELECT o.name as op,
                                       r.display_name as patient_name,
                                       o.date as date,
                                       e.name as doctor,
@@ -138,6 +139,73 @@ class PatientReportWizard(models.TransientModel):
                 WHERE (o.patient_card = %(patient_card)s AND o.date BETWEEN
                 %(date_from)s AND %(date_to)s AND o.doctor = %(doctor)s AND
                 o.disease = %(disease)s )""", args)
+        elif self.patient_card_id and self.date_from and self.date_to and self.doctor_id:
+            args = {
+            'patient_card': self.patient_card_id.id,
+            'date_from': self.date_from,
+            'date_to': self.date_to,
+            'doctor': self.doctor_id.id,
+            }
+            self.env.cr.execute("""SELECT o.name as op,
+                                      r.display_name as patient_name,
+                                      o.date as date,
+                                      e.name as doctor,
+                                      de.name as department,
+                                      d.name as disease FROM hospital_op o
+            LEFT OUTER JOIN hospital_patient_card p ON(o.patient_card=p.id)
+            LEFT OUTER JOIN res_partner r ON(o.patient_name=r.id)
+            LEFT OUTER JOIN hr_employee e ON(o.doctor=e.id)
+            LEFT OUTER JOIN hr_department de ON(o.department=de.id)
+            LEFT OUTER JOIN hospital_disease d ON(o.disease=d.id)
+            WHERE (o.patient_card = %(patient_card)s AND o.date BETWEEN
+            %(date_from)s AND %(date_to)s AND o.doctor = %(doctor)s)""", args)
+        elif self.patient_card_id and self.date_from and self.date_to:
+            args = {
+            'patient_card': self.patient_card_id.id,
+            'date_from': self.date_from,
+            'date_to': self.date_to
+            }
+            self.env.cr.execute("""SELECT o.name as op,
+                                      r.display_name as patient_name,
+                                      o.date as date,
+                                      e.name as doctor,
+                                      de.name as department,
+                                      d.name as disease FROM hospital_op o
+            LEFT OUTER JOIN hospital_patient_card p ON(o.patient_card=p.id)
+            LEFT OUTER JOIN res_partner r ON(o.patient_name=r.id)
+            LEFT OUTER JOIN hr_employee e ON(o.doctor=e.id)
+            LEFT OUTER JOIN hr_department de ON(o.department=de.id)
+            LEFT OUTER JOIN hospital_disease d ON(o.disease=d.id)
+            WHERE (o.patient_card = %(patient_card)s AND o.date BETWEEN
+            %(date_from)s AND %(date_to)s)""", args)
+        elif self.patient_card_id:
+            args = {
+            'patient_card': self.patient_card_id.id
+            }
+            self.env.cr.execute("""SELECT o.name as op,
+                                      r.display_name as patient_name,
+                                      o.date as date,
+                                      e.name as doctor,
+                                      de.name as department,
+                                      d.name as disease FROM hospital_op o
+            LEFT OUTER JOIN hospital_patient_card p ON(o.patient_card=p.id)
+            LEFT OUTER JOIN res_partner r ON(o.patient_name=r.id)
+            LEFT OUTER JOIN hr_employee e ON(o.doctor=e.id)
+            LEFT OUTER JOIN hr_department de ON(o.department=de.id)
+            LEFT OUTER JOIN hospital_disease d ON(o.disease=d.id)
+            WHERE (o.patient_card = %(patient_card)s)""", args)
+        else:
+            self.env.cr.execute("""SELECT o.name as op,
+                                                 r.display_name as patient_name,
+                                                 o.date as date,
+                                                 e.name as doctor,
+                                                 de.name as department,
+                                                 d.name as disease FROM hospital_op o
+                       LEFT OUTER JOIN hospital_patient_card p ON(o.patient_card=p.id)
+                       LEFT OUTER JOIN res_partner r ON(o.patient_name=r.id)
+                       LEFT OUTER JOIN hr_employee e ON(o.doctor=e.id)
+                       LEFT OUTER JOIN hr_department de ON(o.department=de.id)
+                       LEFT OUTER JOIN hospital_disease d ON(o.disease=d.id)""")
         result = self.env.cr.dictfetchall()
         data = {
             'form_data': self.read()[0],

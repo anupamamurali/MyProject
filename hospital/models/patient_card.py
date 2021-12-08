@@ -12,8 +12,8 @@ class HospitalPatientCard(models.Model):
                                    required=True)
     name = fields.Char(string='Patient Reference', required=True, copy=False,
                        readonly=True, default=lambda self: 'New')
-    dob = fields.Date(string='DOB', related='patient_name.dob')
-    age = fields.Integer(string='Age')
+    dob = fields.Date(string='DOB', related='patient_name.dob', store=True)
+    age = fields.Integer(string='Age', compute="_compute_birth_date")
     gender = fields.Selection(related='patient_name.gender')
     mobile = fields.Char(related='patient_name.mobile')
     phone = fields.Char(related='patient_name.phone')
@@ -39,9 +39,10 @@ class HospitalPatientCard(models.Model):
         res = super(HospitalPatientCard, self).create(vals)
         return res
 
-    @api.onchange('dob')
-    def onchange_birth_date(self):
+    @api.depends('dob')
+    def _compute_birth_date(self):
         """Updates age field when birth_date is changed"""
+        self.age = False
         if self.dob:
             dob = str(self.dob)
             d1 = datetime.strptime(dob, '%Y-%m-%d')
