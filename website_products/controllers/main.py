@@ -1,10 +1,11 @@
 from odoo import http
-from odoo.http import request, route
+from odoo import models
+from odoo.http import request
 from odoo.addons.http_routing.models.ir_http import slug
 from odoo.addons.website.controllers.main import QueryURL
 from odoo.addons.website_sale.controllers.main import WebsiteSale
-from werkzeug.exceptions import Forbidden, NotFound
-from odoo.osv import expression
+from werkzeug.exceptions import NotFound
+
 
 class TableCompute(object):
 
@@ -74,41 +75,21 @@ class TableCompute(object):
         return rows
 
 
+class Website(models.Model):
+    _inherit = 'website'
+
+    def sale_product_domain(self):
+        user_id = request.env.user
+        user_rec = request.env['res.partner'].search(
+            [('id', '=', user_id.partner_id.id)])
+        product_id = []
+        if user_rec.product_ids:
+            for rec in user_rec.product_ids:
+                product_id.append(rec.id)
+        return [("sale_ok", "=", True), ("id", "in", product_id)] + self.get_current_website().website_domain()
+
+
 class WebsiteSaleInherit(WebsiteSale):
-    def _get_search_domain(self, search, category, attrib_values, search_in_description=True):
-        print("in function")
-        domains = [request.website.sale_product_domain()]
-        if search:
-            for srch in search.split(" "):
-                subdomains = [
-                    [('name', 'ilike', srch)],
-                    [('product_variant_ids.default_code', 'ilike', srch)]
-                ]
-                if search_in_description:
-                    subdomains.append([('description', 'ilike', srch)])
-                    subdomains.append([('description_sale', 'ilike', srch)])
-                domains.append(expression.OR(subdomains))
-
-        if category:
-            domains.append([('public_categ_ids', 'child_of', int(category))])
-
-        if attrib_values:
-            attrib = None
-            ids = []
-            for value in attrib_values:
-                if not attrib:
-                    attrib = value[0]
-                    ids.append(value[1])
-                elif value[0] == attrib:
-                    ids.append(value[1])
-                else:
-                    domains.append([('attribute_line_ids.value_ids', 'in', ids)])
-                    attrib = value[0]
-                    ids = [value[1]]
-            if attrib:
-                domains.append([('attribute_line_ids.value_ids', 'in', ids)])
-
-        return expression.AND(domains)
     @http.route([
         '''/shop''',
         '''/shop/page/<int:page>''',
@@ -153,7 +134,6 @@ class WebsiteSaleInherit(WebsiteSale):
             new_categs = Category.search([('id', 'in', category_id)])
         else:
             new_categs = Category
-
         domain = self._get_search_domain(search, category, attrib_values)
 
         keep = QueryURL('/shop', category=category and int(category),
@@ -185,11 +165,10 @@ class WebsiteSaleInherit(WebsiteSale):
         website_domain = request.website.website_domain()
         categs_domain = [('parent_id', '=', False)] + website_domain
 
-        searching_product = search_product.search(domain,
+        searching_product = new_products.search(domain,
                                         order=self._get_search_order(post))
         if search:
-            search_categories = Category.search([('product_ids', 'in',
-                                                  searching_product.ids)] + website_domain).parents_and_self
+            search_categories = Category.search([('product_tmpl_ids', 'in', searching_product.ids)] + website_domain).parents_and_self
             categs_domain.append(('id', 'in', search_categories.ids))
         else:
             search_categories = Category
@@ -237,7 +216,6 @@ class WebsiteSaleInherit(WebsiteSale):
             'search_categories_ids': search_categories.ids,
             'layout_mode': layout_mode,
         }
-        print("values= ", values)
         if category:
             values['main_object'] = category
         return request.render("website_sale.products", values)
