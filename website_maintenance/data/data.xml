@@ -22,10 +22,7 @@
                         Thank you (<strong>${object.name}</strong>) for
                         submitting your maintenance request
                         (<strong>${object.name}</strong>). We are inform you
-                        that you are selected for admission. Please Join in
-                        (<strong>${object.name}</strong>).
-                        <br/>
-                        Admission No: (<strong>${object.name}</strong>)
+                        that your request is received.
                     </p>
                 </div>
             </field>
