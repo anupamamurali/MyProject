@@ -9,8 +9,11 @@
     'depends': [
         'website',
         'website_sale',
+        'maintenance',
+        'mail'
     ],
     'data': [
+        'data/data.xml',
         'views/website_form.xml'
     ],
     'demo': [],
