@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="customer_view">
+        <field name="name">customer.view</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            <field name="employee_id" position="after">
+                <field name="rec_name" invisible="1"/>
+                <field name="customer_name" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

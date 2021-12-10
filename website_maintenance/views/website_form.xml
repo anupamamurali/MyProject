@@ -14,13 +14,13 @@
                         <form role="form" action="/create/maintenancerequest" method="POST">
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                             <div class="form-group">
-                                <label for="user_name" class="control-label">Your Name</label>
-                                <input type="text" name="user_name" t-att-value="user_name" id="user_name"
+                                <label for="customer_name" class="control-label">Your Name</label>
+                                <input type="text" name="customer_name" t-att-value="customer_name" id="customer_name"
                                        class="form-control" placeholder="e.g. John Doe" required="required"/>
                             </div>
                             <div class="form-group">
-                                <label for="email" class="control-label">Your Email</label>
-                                <input type="email" name="email_id" t-att-value="email_id" id="email_id"
+                                <label for="email_cc" class="control-label">Your Email</label>
+                                <input type="email" name="email_cc" t-att-value="email_cc" id="email_cc"
                                        class="form-control" placeholder="e.g. johndoe@gmail.com" required="required"/>
                             </div>
                             <div class="form-group">
@@ -29,8 +29,8 @@
                                        class="form-control" placeholder="e.g. Maintenance Request" required="required"/>
                             </div>
                             <div class="form-group">
-                                <label>Select Maintenance Team</label>
-                                <select class="form-control" name="maintenance_team_id">
+                                <label for="maintenance_team_id" class="control-label">Select Maintenance Team</label>
+                                <select class="form-control link-style" name="maintenance_team_id">
                                     <t t-foreach="maintenance_teams" t-as="maintenance_team">
                                         <option t-att-value="maintenance_team.id">
                                             <t t-esc="maintenance_team.name"/>
@@ -39,7 +39,7 @@
                                 </select>
                             </div>
                             <div class="clearfix oe_login_buttons">
-                                <button type="submit" class="btn btn-primary pull-left" name="action_email">Submit</button>
+                                <button type="submit" class="btn btn-primary pull-left">Submit</button>
                             </div>
                         </form>
                     </div>

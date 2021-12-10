@@ -14,7 +14,8 @@
     ],
     'data': [
         'data/data.xml',
-        'views/website_form.xml'
+        'views/website_form.xml',
+        'views/maintenance_customer.xml'
     ],
     'demo': [],
     'qweb': [],
