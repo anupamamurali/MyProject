@@ -5,7 +5,7 @@
         <field name="url">/maintenance_webform</field>
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence">55</field>
-    </record>website_maintenance.create_request
+    </record>
     <template id="create_request" name="Create Maintenance Request">
         <t t-call="website.layout">
             <div id="wrap">
