@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="menu_helpdesk_form" model="website.menu">
+        <field name="name">HR Helpdesk</field>
+        <field name="url">/helpdesk_webform</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">56</field>
+    </record>
+    <template id="create_ticket" name="Create Helpdesk Ticket">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+                        <form role="form" action="/create/helpdeskticket" method="POST">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="form-group">
+                                <label for="category_id" class="control-label">Employee Name</label>
+                                <select class="form-control link-style" name="emp_name_id">
+                                    <t t-foreach="employees" t-as="employee">
+                                        <option t-att-value="employee.id">
+                                            <t t-esc="employee.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="category_id" class="control-label">Helpdesk Category</label>
+                                <select class="form-control link-style" name="category_id">
+                                    <t t-foreach="categories" t-as="category">
+                                        <option t-att-value="category.id">
+                                            <t t-esc="category.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="clearfix oe_login_buttons">
+                                <button type="submit" class="btn btn-primary pull-left">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <record id="ticket_thanks" model="website.page">
+        <field name="name">Thanks</field>
+        <field name="type">qweb</field>
+        <field name="url">/ticket-thank-you</field>
+        <field name="website_published">True</field>
+        <field name="key">employee_help_desk.ticket_thanks</field>
+        <field name="arch" type="xml">
+            <t name="Thanks" t-name="employee_help_desk.ticket_thanks">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="container">
+                            <h1>Thanks!</h1>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="alert alert-success" role="status">
+                                        Your request has been sent successfully.
+                                    </div>
+                                    <p>
+                                        We will get back to you shortly.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+</odoo>

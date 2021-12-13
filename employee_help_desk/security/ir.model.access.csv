@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_help_desk,access.help.desk,model_help_desk,,1,1,1,1
+access_help_category,access.help.category,model_help_category,,1,1,1,1
+

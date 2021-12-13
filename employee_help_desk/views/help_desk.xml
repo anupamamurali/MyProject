@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="helpdesk_form" model="ir.ui.view">
+        <field name="name">employee.helpdesk.form</field>
+        <field name="model">help.desk</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button id="button_confirm" name="action_confirm"
+                            string="Confirm" class="btn-primary" type="object"/>
+                    <button id="button_reject" name="action_reject"
+                            string="Reject" class="btn-primary"
+                            type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <h1 class="d-flex"><field name="rec_name"/></h1>
+                        <group>
+                            <field name="emp_name_id"/>
+                            <field name="category_id"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="helpdesk_tree" model="ir.ui.view">
+        <field name="name">employee.helpdesk.tree</field>
+        <field name="model">help.desk</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="rec_name"/>
+                <field name="emp_name_id"/>
+                <field name="category_id"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="help_desk_action" model="ir.actions.act_window">
+        <field name="name">HelpDesk</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">help.desk</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                create your first helpdesk request</p>
+        </field>
+    </record>
+    <menuitem
+           id="menu_hr_help_desk"
+           name="HelpDesk"
+           action="help_desk_action"
+           parent="hr.menu_hr_root"/>
+</odoo>
