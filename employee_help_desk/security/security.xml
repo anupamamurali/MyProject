@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="employee_rule" model="ir.rule">
+        <field name="name">See Only His Helpdesk</field>
+        <field name="model_id" ref="model_help_desk"/>
+        <field name="domain_force">[('employee_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+    </record>
+</odoo>

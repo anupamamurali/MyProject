@@ -14,8 +14,8 @@
                         <form role="form" action="/create/helpdeskticket" method="POST">
                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                             <div class="form-group">
-                                <label for="category_id" class="control-label">Employee Name</label>
-                                <select class="form-control link-style" name="emp_name_id">
+                               <label for="employee_id" class="control-label">Employee Name</label>
+                                <select class="form-control link-style" name="employee_id">
                                     <t t-foreach="employees" t-as="employee">
                                         <option t-att-value="employee.id">
                                             <t t-esc="employee.name"/>

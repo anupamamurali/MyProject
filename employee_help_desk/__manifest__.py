@@ -9,9 +9,13 @@
     'depends': ['hr', 'website', 'mail', 'base'],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'data/data.xml',
+        'report/report.xml',
+        'report/helpdesk_details.xml',
         'views/help_desk.xml',
         'views/help_category.xml',
+        'views/portal_template.xml',
         'views/website_helpdesk.xml'
     ],
     'demo': [],
