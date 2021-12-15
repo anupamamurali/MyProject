@@ -10,34 +10,86 @@
         <t t-call="website.layout">
             <div id="wrap">
                 <div class="oe_structure">
-                    <div class="container">
-                        <form role="form" action="/create/helpdeskticket" method="POST">
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                            <div class="form-group">
-                               <label for="employee_id" class="control-label">Employee Name</label>
-                                <select class="form-control link-style" name="employee_id">
-                                    <t t-foreach="employees" t-as="employee">
-                                        <option t-att-value="employee.id">
-                                            <t t-esc="employee.name"/>
-                                        </option>
-                                    </t>
-                                </select>
+                    <section class="s_title parallax s_parallax_is_fixed bg-black-50 pt24 pb24" data-vcss="001" data-snippet="s_title" data-scroll-background-ratio="1">
+                        <span class="s_parallax_bg oe_img_bg" style="background-image: url('/web/image/website.s_banner_default_image'); background-position: 50% 0;"/>
+                        <div class="o_we_bg_filter bg-black-50"/>
+                        <div class="container">
+                            <h1> HR Helpdesk</h1>
+                        </div>
+                    </section>
+                </div>
+                <div class="container mt-4 mb-5">
+                    <div class="oe_structure">
+                        <section class="s_text_block" data-snippet="s_text_block">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>
+                                            Use HR Helpdesk to request different kinds of services.<br/>
+                                            We'll do our best to get back to you as soon as possible.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="category_id" class="control-label">Helpdesk Category</label>
-                                <select class="form-control link-style" name="category_id">
-                                    <t t-foreach="categories" t-as="category">
-                                        <option t-att-value="category.id">
-                                            <t t-esc="category.name"/>
-                                        </option>
-                                    </t>
-                                </select>
-                            </div>
-                            <div class="clearfix oe_login_buttons">
-                                <button type="submit" class="btn btn-primary pull-left">Submit</button>
-                            </div>
-                        </form>
+                        </section>
                     </div>
+                    <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
+                        <div class="container">
+                            <form role="form" action="/create/helpdeskticket" method="POST" class="o_mark_required">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="form-group col-12 s_website_form_field s_website_form_required">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label for="employee_id" class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                                            <span class="s_website_form_label_content">Employee Name</span>
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <select class="form-control link-style" name="employee_id" style="width: 300px">
+                                                <t t-foreach="employees" t-as="employee">
+                                                    <option t-att-value="employee.id" t-att-selected="employee.id == int(emp_id) if emp_id else false">
+                                                        <t t-esc="employee.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 s_website_form_field s_website_form_required">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label for="category_id" class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                                            <span class="s_website_form_label_content">Helpdesk Category</span>
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <select class="form-control link-style" name="category_id" style="width: 300px">
+                                                <t t-foreach="categories" t-as="category">
+                                                    <option t-att-value="category.id">
+                                                        <t t-esc="category.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 s_website_form_field s_website_form_required">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                            <label for="subject" class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                                                <span class="s_website_form_label_content">Subject</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input id="subject" type="text" class="form-control s_website_form_input" name="subject" style="width: 300px" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="clearfix oe_login_buttons">
+                                    <div class="col-md-12 text-center">
+                                        <button type="submit" class="btn btn-primary pull-left">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
                 </div>
             </div>
         </t>

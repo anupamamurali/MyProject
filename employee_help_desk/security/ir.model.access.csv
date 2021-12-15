@@ -1,4 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_help_desk,access.help.desk,model_help_desk,,1,1,1,1
+access_hr_user_manager,hr.user.manager,model_help_desk,hr.group_hr_manager,1,1,1,1
+access_hr_user_emp,hr.user.emp,model_help_desk,hr.group_hr_user,1,1,1,0
 access_help_category,access.help.category,model_help_category,,1,1,1,1
 

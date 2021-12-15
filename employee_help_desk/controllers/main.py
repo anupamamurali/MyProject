@@ -17,10 +17,14 @@ class HelpdeskRequest(http.Controller):
     def helpdesk_webform(self, **kwargs):
         print("in function")
         employees = request.env['hr.employee'].sudo().search([])
+        emp_id = request.env.user.employee_id
+        print("employee:", emp_id)
         categories = request.env['help.category'].sudo().search([])
-        return http.request.render('employee_help_desk.create_ticket', {
-                                                          'employees': employees,
-                                                         'categories': categories})
+        return http.request.render(
+            'employee_help_desk.create_ticket', {'emp_id': emp_id,
+                                                 'employees': employees,
+                                                 'categories': categories,
+                                                 'subject': kwargs.get('subject')})
 
     @http.route('/create/helpdeskticket', type="http", auth="public", website=True)
     def create_helpdeskticket(self, **kwargs):
@@ -28,23 +32,19 @@ class HelpdeskRequest(http.Controller):
         print("employees:", kwargs.get('employees'))
         values = {
             'employee_id': kwargs.get('employee_id'),
-            'category_id': kwargs.get('category_id')
+            'category_id': kwargs.get('category_id'),
+            'subject': kwargs.get('subject')
             }
-        help_desk_id = request.env['help.desk'].sudo().create(values)
-        print("ghj:", help_desk_id, help_desk_id.emp_name)
+        request.env['help.desk'].sudo().create(values)
         return request.render('employee_help_desk.ticket_thanks', {})
 
 
 class CustomerPortal(CustomerPortal):
 
     def _prepare_home_portal_values(self, counters):
-       # user = request.env.user.partner_id.id
         values = super()._prepare_home_portal_values(counters)
         if 'helpdesk_count' in counters:
             values['helpdesk_count'] = request.env['help.desk'].search_count([])
-            # ('partner_id', '=', user)
-            # if request.env['help.desk'].check_access_rights('read', raise_exception=False) else 0
-            print("Values", values)
         return values
 
     def _helpdesk_request_get_page_view_values(self, order, access_token,
@@ -67,7 +67,6 @@ class CustomerPortal(CustomerPortal):
                                        date_end=None, sortby=None,
                                        filterby=None, **kw):
         values = self._prepare_portal_layout_values()
-       # user = request.env.user.partner_id.id
         Helpdesk = request.env['help.desk']
         domain = []
 
@@ -89,10 +88,10 @@ class CustomerPortal(CustomerPortal):
         order = searchbar_sortings[sortby]['order']
         searchbar_filters = {
             'all': {'label': _('All'), 'domain': [
-                ('state', 'in', ['draft', 'confirmed', 'cancelled'])]},
+                ('state', 'in', ['draft', 'confirm', 'cancel'])]},
             'draft': {'label': _('Draft'), 'domain': [('state', '=', 'draft')]},
             'confirmed': {'label': _('Confirmed'),
-                          'domain': [('state', '=', 'confirmed')]},
+                          'domain': [('state', '=', 'confirm')]},
             'cancel': {'label': _('Cancelled'),
                        'domain': [('state', '=', 'cancel')]}
         }

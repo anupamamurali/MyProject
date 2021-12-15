@@ -20,8 +20,11 @@
                         <group>
                             <field name="employee_id"/>
                             <field name="category_id"/>
+                            <field name="subject"/>
+                        </group>
+                        <group>
                             <field name="created_date"/>
-<!--                            <field name="user_id"/>-->
+                            <field name="user_id"/>
                             <field name="company_id"/>
                         </group>
                     </group>
@@ -42,6 +45,7 @@
                 <field name="rec_name"/>
                 <field name="employee_id"/>
                 <field name="category_id"/>
+                <field name="subject"/>
                 <field name="created_date"/>
                 <field name="company_id"/>
             </tree>

@@ -84,33 +84,33 @@
                                         </div>
                                     </div>
                                 </li>
-<!--                                <li t-if="helpdesk_request.emp_name"-->
-<!--                                    class="list-group-item flex-grow-1">-->
-<!--                                    <div class="small mb-1">-->
-<!--                                        <strong class="text-muted">Helpdesk Request Representative</strong>-->
-<!--                                    </div>-->
-<!--                                    <div class="row flex-nowrap">-->
-<!--                                        <div class="col flex-grow-0 pr-2">-->
-<!--                                            <img class="rounded-circle mr4 float-left o_portal_contact_img"-->
-<!--                                                 t-if="helpdesk_request.emp_name.image_1024"-->
-<!--                                                 t-att-src="image_data_uri(helpdesk_request.emp_name.image_1024)"-->
-<!--                                                 alt="Contact"/>-->
-<!--                                            <img class="rounded-circle mr4 float-left o_portal_contact_img"-->
-<!--                                                 t-if="not helpdesk_request.emp_name.image_1024"-->
-<!--                                                 src="/web/static/src/img/placeholder.png"-->
-<!--                                                 alt="Contact"/>-->
-<!--                                        </div>-->
-<!--                                        <div class="col pl-0"-->
-<!--                                             style="min-width: 150px">-->
-<!--                                            <span t-field="helpdesk_request.emp_name"-->
-<!--                                                  t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True}'/>-->
-<!--                                            <a href="#discussion" class="small">-->
-<!--                                                <i class="fa fa-comment"></i>-->
-<!--                                                Send message-->
-<!--                                            </a>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </li>-->
+                                <li t-if="helpdesk_request.user_id"
+                                    class="list-group-item flex-grow-1">
+                                    <div class="small mb-1">
+                                        <strong class="text-muted">Helpdesk Request Representative</strong>
+                                    </div>
+                                    <div class="row flex-nowrap">
+                                        <div class="col flex-grow-0 pr-2">
+                                            <img class="rounded-circle mr4 float-left o_portal_contact_img"
+                                                 t-if="helpdesk_request.user_id.image_1024"
+                                                 t-att-src="image_data_uri(helpdesk_request.user_id.image_1024)"
+                                                 alt="Contact"/>
+                                            <img class="rounded-circle mr4 float-left o_portal_contact_img"
+                                                 t-if="not helpdesk_request.user_id.image_1024"
+                                                 src="/web/static/src/img/placeholder.png"
+                                                 alt="Contact"/>
+                                        </div>
+                                        <div class="col pl-0"
+                                             style="min-width: 150px">
+                                            <span t-field="helpdesk_request.user_id"
+                                                  t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True}'/>
+                                            <a href="#discussion" class="small">
+                                                <i class="fa fa-comment"></i>
+                                                Send message
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </t>
                     </t>
@@ -144,6 +144,9 @@
                                             <th class="text-left">
                                                 Ticket Type
                                             </th>
+                                            <th class="text-left">
+                                                Ticket Subject
+                                            </th>
                                             <th class="text-left">State
                                             </th>
                                         </tr>
@@ -152,6 +155,9 @@
                                         <tr>
                                             <td class="text-left">
                                                 <span t-esc="order.category_id.name"/>
+                                            </td>
+                                            <td class="text-left">
+                                                <span t-esc="order.subject"/>
                                             </td>
                                             <td class="text-left">
                                                 <span t-esc="order.state"/>

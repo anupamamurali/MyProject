@@ -43,6 +43,19 @@
                                                         <span t-field="o.category_id"/>
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>
+                                                            <strong>Ticket Subject</strong>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span>:</span>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="o.subject"/>
+                                                    </td>
+                                                </tr>
                                             </table>
                                         </td>
                                     </tr>

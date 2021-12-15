@@ -8,8 +8,10 @@ class HelpDesk(models.Model):
     _description = "Employee Help Desk"
     _rec_name = 'rec_name'
 
-    employee_id = fields.Many2one('hr.employee', string='Employee')
+    employee_id = fields.Many2one('hr.employee', string='Employee', default=lambda self: self.env.user.employee_id)
+    user_id = fields.Many2one('res.user', string='Responsible Person', default=lambda self: self.env.user)
     category_id = fields.Many2one('help.category', string='Type Of Ticket')
+    subject = fields.Text(string='Subject')
     created_date = fields.Date(string="Created Date", default=datetime.today())
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company, readonly=True)
     state = fields.Selection([('draft', 'Draft'),
@@ -31,7 +33,7 @@ class HelpDesk(models.Model):
         self.state = 'confirm'
 
     def action_reject(self):
-        self.state = 'reject'
+        self.state = 'cancel'
 
     def _compute_access_url(self):
         super(HelpDesk, self)._compute_access_url()
@@ -40,6 +42,6 @@ class HelpDesk(models.Model):
 
     def _get_report_base_filename(self):
         self.ensure_one()
-        return 'Helpdesk Request-%s' % (self.emp_name)
+        return 'Helpdesk Request-%s' % (self.employee_id)
 
 
