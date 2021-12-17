@@ -9,7 +9,7 @@ class HelpDesk(models.Model):
     _rec_name = 'rec_name'
 
     employee_id = fields.Many2one('hr.employee', string='Employee', default=lambda self: self.env.user.employee_id)
-    user_id = fields.Many2one('res.user', string='Responsible Person', default=lambda self: self.env.user)
+    user_id = fields.Many2one('res.users', string='Responsible Person', default=lambda self: self.env.user)
     category_id = fields.Many2one('help.category', string='Type Of Ticket')
     subject = fields.Text(string='Subject')
     created_date = fields.Date(string="Created Date", default=datetime.today())

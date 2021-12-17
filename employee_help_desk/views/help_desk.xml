@@ -52,7 +52,7 @@
         </field>
     </record>
     <record id="help_desk_action" model="ir.actions.act_window">
-        <field name="name">HelpDesk</field>
+        <field name="name">My HelpDesk</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">help.desk</field>
         <field name="view_mode">tree,form</field>
@@ -63,7 +63,7 @@
     </record>
     <menuitem
            id="menu_hr_help_desk"
-           name="HelpDesk"
+           name="My HelpDesk"
            action="help_desk_action"
            parent="hr.menu_hr_root"/>
 </odoo>

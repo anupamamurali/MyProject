@@ -15,10 +15,8 @@ class HelpdeskRequest(http.Controller):
 
     @http.route('/helpdesk_webform', type="http", auth="public", website=True)
     def helpdesk_webform(self, **kwargs):
-        print("in function")
         employees = request.env['hr.employee'].sudo().search([])
         emp_id = request.env.user.employee_id
-        print("employee:", emp_id)
         categories = request.env['help.category'].sudo().search([])
         return http.request.render(
             'employee_help_desk.create_ticket', {'emp_id': emp_id,
@@ -28,8 +26,6 @@ class HelpdeskRequest(http.Controller):
 
     @http.route('/create/helpdeskticket', type="http", auth="public", website=True)
     def create_helpdeskticket(self, **kwargs):
-        print("Data Received:", kwargs)
-        print("employees:", kwargs.get('employees'))
         values = {
             'employee_id': kwargs.get('employee_id'),
             'category_id': kwargs.get('category_id'),
@@ -82,7 +78,6 @@ class CustomerPortal(CustomerPortal):
                                    'order': 'created_date desc, id desc'},
             'state': {'label': _('State'), 'order': 'state asc, id asc'}
         }
-        # default sort by value
         if not sortby:
             sortby = 'rec_name'
         order = searchbar_sortings[sortby]['order']
@@ -95,7 +90,6 @@ class CustomerPortal(CustomerPortal):
             'cancel': {'label': _('Cancelled'),
                        'domain': [('state', '=', 'cancel')]}
         }
-        # default filter by value
         if not filterby:
             filterby = 'all'
         domain += searchbar_filters[filterby]['domain']
