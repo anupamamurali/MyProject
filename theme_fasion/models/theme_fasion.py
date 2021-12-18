@@ -28,5 +28,5 @@ class ThemeFashion(models.AbstractModel):
 
     def _theme_fasion_post_copy(self, mod):
         print("ghj")
-        # self.enable_view('website.template_header_hamburger')
+        self.enable_view('website.template_header_hamburger')
         self.disable_view('website.template_header_default')

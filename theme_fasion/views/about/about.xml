@@ -112,4 +112,223 @@
 </section>
 
 </template>
+  <template id="fasion_footer_layout" inherit_id="website.layout"
+                  name="Footer Sample">
+            <xpath expr="//div[@id='footer']" position="replace">
+                <div class="card-footer">
+                    <section class="footer">
+                        <div class="footer_content">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-lg-6 footer_left">
+                                        <div class="row">
+                                            <div class="col-6 footer-left-words">
+                                                With supporting text below as a
+                                                natural lead-in to a
+                                                content
+                                            </div>
+                                            <div class="col-6 footer-left-words">
+                                                With supporting text below as a
+                                                natural lead-in to a
+                                                content
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 footer-left-words">
+                                                With supporting text below as a
+                                                natural lead-in to a
+                                                content
+                                            </div>
+                                            <div class="col-6 footer-left-words">
+                                                With supporting text below as a
+                                                natural lead-in to a
+                                                content
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 footer-left-words">
+                                                With supporting text below as a
+                                                natural lead-in to a
+                                                content
+                                            </div>
+                                            <div class="col-6 footer-left-words">
+                                                With supporting text below as a
+                                                natural lead-in to a
+                                                content
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-lg-6 footer_right">
+
+
+                                        <div class="row">
+                                            <div class="col-4 footer-right-words">
+                                                <h5 class="footer_heading">ABOUT
+                                                    US
+                                                </h5>
+                                                <ul class=" footer_items ">
+                                                    <li>
+                                                        <a href="#">Odoo</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Odoo apps
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Odoo
+                                                            partners
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">By source
+                                                            code
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/contactus">
+                                                            Contact us
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Site map</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="col-4 footer-right-words">
+                                                <h5 class="footer_heading">ABOUT
+                                                    US
+                                                </h5>
+                                                <ul class=" footer_items ">
+                                                    <li>
+                                                        <a href="#">Odoo</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Odoo apps
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Odoo
+                                                            partners
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">By source
+                                                            code
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/contactus">
+                                                            Contact us
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Site map</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="col-4 footer-right-words">
+                                                <h5 class="footer_heading">ABOUT
+                                                    US
+                                                </h5>
+                                                <ul class=" footer_items ">
+                                                    <li>
+                                                        <a href="#">Odoo</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Odoo apps
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Odoo
+                                                            partners
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">By source
+                                                            code
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/contactus">
+                                                            Contact us
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Site map</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="container message_bar">
+
+                                                <form class="form">
+                                                    <input type="text"
+                                                           class="message_box"
+                                                           placeholder=""/>
+                                                    <button type="button"
+                                                            class="btn btn-message ">
+                                                        SEND ME
+                                                    </button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="copy_right">
+                            <div class="container cpoy_r">
+                                <div class="row">
+                                    <div class="col-4 copy_s">
+                                        <div class="social_media">
+                                            <ul>
+                                                <li>
+                                                    <a class="" href="#">
+                                                        <img src="/theme_fasion/static/src/images/scial_media_icon/instagram.svg"/>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="" href="#">
+                                                        <img src="/theme_fasion/static/src/images/scial_media_icon/facebook.svg"/>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="" href="#">
+                                                        <img src="/theme_fasion/static/src/images/scial_media_icon/twitter.svg"/>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                            <!-- <a href="#" class="btn btn-primary">Shop now</a> -->
+
+                                        </div>
+
+                                        <div class="site_name">
+
+                                            <a href="#">www.shop.com</a>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="footer_line">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </xpath>
+        </template>
+
+
 </odoo>

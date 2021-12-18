@@ -40,7 +40,7 @@
         'views/product/product.xml',
         'views/product/blog.xml',
         'views/preview/preview.xml',
-        # 'views/banner/banner.xml',
+        'views/banner/banner.xml',
         'views/slider/slider.xml',
         'views/slider/sliders.xml',
         'views/cart/cart.xml',
