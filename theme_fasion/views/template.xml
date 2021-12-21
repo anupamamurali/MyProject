@@ -1,85 +1,91 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
+        <!--        <template id="template_header_hamburger_oe_structure_header_fasion"-->
+        <!--                  inherit_id="website.template_header_hamburger"-->
+        <!--                  name="Template Header Fashion">-->
+        <!--            <xpath expr="//header//nav" position="replace">-->
+        <!--                <section class="main-nav">-->
+        <!--                    <div class="container">-->
+
+        <!--                        <nav class="navbar ">-->
         <template id="template_header_hamburger_oe_structure_header_fasion"
                   inherit_id="website.template_header_hamburger"
-                  name="Template Header Fashion">
-            <xpath expr="//header//nav" position="replace">
-                <section class="main-nav">
-                    <div class="container">
+                  name="Template Header Fashion" active="True">
+            <xpath expr="//t [@t-call='website.navbar']" position="replace">
+                <t t-call="website.navbar">
+                    <t t-set="_navbar_classes" t-valuef="shadow-sm"/>
+                    <a class="navbar-brand" href="/?">
+                        <img src="/theme_fasion/static/src/images/banner/logo.png"
+                             height="50px"/>
+                    </a>
 
-                        <nav class="navbar ">
-                            <a class="navbar-brand" href="/?">
-                                <img src="/theme_fasion/static/src/images/banner/logo.png"
-                                     height="50px"/>
-                            </a>
+                    <div class="header-top-left ">
 
-                            <div class="header-top-left ">
-
-                                <img src="/theme_fasion/static/src/images/icons/message.svg"/>
-                                <a class="info" href="mailto: INFO@DEMO.COM">
-                                    INFO@DEMO.COM
-                                </a>
-                            </div>
-                            <div class="header-top-left ">
-                                <img src="/theme_fasion/static/src/images/icons/smartphone.svg"/>
-                                <a class="info" href="tel:+6494461709">
-                                    +6494461709
-                                </a>
-
-                            </div>
-                            <form class="header-top-right">
-                                <input class="form-control mr-sm-1"
-                                       type="search" placeholder="Search"
-                                       aria-label="Search"/>
-
-                                <div class="searchb">
-                                    <a class="search" href="#">
-                                        <img src="/theme_fasion/static/src/images/icons/search.svg"/>
-                                    </a>
-                                </div>
-                            </form>
-                            <button class="openbtn" onclick="openNav()">
-                                &#9776;
-                            </button>
-                            <ul class="nav navbar-nav navbar-expand">
-                                <!-- Sign In -->
-                                <t t-call="portal.placeholder_user_sign_in">
-                                    <t t-set="_item_class"
-                                       t-value="'nav-item'"/>
-                                    <t t-set="_link_class"
-                                       t-value="'nav-link'"/>
-                                </t>
-
-                                <!-- User Dropdown -->
-                                <t t-call="portal.user_dropdown">
-                                    <t t-set="_icon" t-value="true"/>
-                                    <t t-set="_item_class"
-                                       t-value="'nav-item dropdown'"/>
-                                    <t t-set="_link_class"
-                                       t-value="'nav-link'"/>
-                                    <t t-set="_dropdown_menu_class"
-                                       t-value="'position-absolute dropdown-menu-right'"/>
-                                </t>
-
-                                <t t-call="website_sale.header_cart_link">
-                                    <t t-set="_icon" t-value="True"/>
-                                    <t t-set="_item_class"
-                                       t-value="'nav-item ml-lg-3'"/>
-                                    <t t-set="_link_class"
-                                       t-value="'nav-link'"/>
-                                </t>
-                                <t t-call="website_sale_wishlist.header_wishlist_link">
-                                    <t t-set="_icon" t-value="True"/>
-                                    <t t-set="_item_class"
-                                       t-value="'nav-item ml-lg-3'"/>
-                                    <t t-set="_link_class"
-                                       t-value="'nav-link'"/>
-                                </t>
-                            </ul>
-
-                        </nav>
+                        <img src="/theme_fasion/static/src/images/icons/message.svg"/>
+                        <a class="info" href="mailto: INFO@DEMO.COM">
+                            INFO@DEMO.COM
+                        </a>
                     </div>
+                    <div class="header-top-left ">
+                        <img src="/theme_fasion/static/src/images/icons/smartphone.svg"/>
+                        <a class="info" href="tel:+6494461709">
+                            +6494461709
+                        </a>
+
+                    </div>
+                    <form class="header-top-right">
+                        <input class="form-control mr-sm-1"
+                               type="search" placeholder="Search"
+                               aria-label="Search"/>
+
+                        <div class="searchb">
+                            <a class="search" href="#">
+                                <img src="/theme_fasion/static/src/images/icons/search.svg"/>
+                            </a>
+                        </div>
+                    </form>
+                    <button class="openbtn" onclick="openNav()">
+                        &#9776;
+                    </button>
+                    <ul class="nav navbar-nav navbar-expand">
+                        <!-- Sign In -->
+                        <t t-call="portal.placeholder_user_sign_in">
+                            <t t-set="_item_class"
+                               t-value="'nav-item'"/>
+                            <t t-set="_link_class"
+                               t-value="'nav-link'"/>
+                        </t>
+
+                        <!-- User Dropdown -->
+                        <t t-call="portal.user_dropdown">
+                            <t t-set="_icon" t-value="true"/>
+                            <t t-set="_item_class"
+                               t-value="'nav-item dropdown'"/>
+                            <t t-set="_link_class"
+                               t-value="'nav-link'"/>
+                            <t t-set="_dropdown_menu_class"
+                               t-value="'position-absolute dropdown-menu-right'"/>
+                        </t>
+
+                        <t t-call="website_sale.header_cart_link">
+                            <t t-set="_icon" t-value="True"/>
+                            <t t-set="_item_class"
+                               t-value="'nav-item ml-lg-3'"/>
+                            <t t-set="_link_class"
+                               t-value="'nav-link'"/>
+                        </t>
+                        <t t-call="website_sale_wishlist.header_wishlist_link">
+                            <t t-set="_icon" t-value="True"/>
+                            <t t-set="_item_class"
+                               t-value="'nav-item ml-lg-3'"/>
+                            <t t-set="_link_class"
+                               t-value="'nav-link'"/>
+                        </t>
+                    </ul>
+
+                    <!--                        </nav>-->
+                    <!--                </div>-->
                     <div id="mySidebar" class="sidebar">
                         <a href="javascript:void(0)" class="closebtn"
                            onclick="closeNav()">
@@ -106,7 +112,8 @@
                             <t t-set="_link_class" t-value="'nav-link'"/>
                         </t>
                     </div>
-                </section>
+                    <!--                </section>-->
+                </t>
             </xpath>
 
         </template>

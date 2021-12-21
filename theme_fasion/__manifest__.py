@@ -46,8 +46,8 @@
         'views/cart/cart.xml',
         'views/contact/contact.xml',
         'views/about/about.xml',
-        # 'views/template.xml',
-     #  'views/header_template.xml',
+        'views/template.xml',
+        # 'views/header_template.xml',
         'views/product_views.xml',
     ],
     'images': [

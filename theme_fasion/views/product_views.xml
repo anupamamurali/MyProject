@@ -60,141 +60,155 @@
     <!--Product views in website-->
     <template id="fasion_product_theme" inherit_id="website_sale.products"
               customize_show="True" name="Fashion Theme">
+<!--        <xpath expr="//t[@t-call='website_sale.pricelist_list']"-->
+<!--               position="after">-->
+<!--            <t t-call="website.pager">-->
+<!--                <t t-set="_classes" t-valuef="mt-2 ml-md-2"/>-->
+<!--            </t>-->
+<!--        </xpath>-->
 
-        <xpath expr="//div[@class='container oe_website_sale pt-2']" position="replace">
-            <div class="container oe_website_sale">
+            <!--            <div class="container oe_website_sale">-->
 
-                <div class="products_pager form-inline flex-md-nowrap justify-content-between justify-content-md-center">
-                    <t t-call="website_sale.search">
-                        <t t-set="_classes" t-valuef="w-100 w-md-auto mt-2"/>
-                    </t>
-                    <t t-call="website_sale.pricelist_list">
-                        <t t-set="_classes" t-valuef="mt-2 ml-md-2"/>
-                    </t>
-                    <t t-call="website.pager">
-                        <t t-set="_classes" t-valuef="mt-2 ml-md-2"/>
-                    </t>
-                    <t t-set="list_price_desc_label">Catalog price: High to
-                        Low
-                    </t>
-                    <t t-set="list_price_asc_label">Catalog price: Low to High
-                    </t>
-                    <t t-set="name_asc_label">Name: A to Z</t>
-                    <t t-set="name_desc_label">Name: Z to A</t>
-                    <t t-set="website_sale_sortable" t-value="[
-                (list_price_desc_label, 'list_price desc'),
-                (list_price_asc_label, 'list_price asc'),
-                (name_asc_label, 'name asc'),
-                (name_desc_label, 'name desc')
-            ]"/>
-                    <t t-set="website_sale_sortable_current"
-                       t-value="[sort for sort in website_sale_sortable if sort[1]==request.params.get('order', '')]"/>
-                    <div class="dropdown mt-2 ml-md-2 dropdown_sorty_by">
-                        <a role="button" href="#"
-                           class="dropdown-toggle btn btn-secondary"
-                           data-toggle="dropdown">
-                            <span class="d-none d-lg-inline">
-                                <t t-if='len(website_sale_sortable_current)'>
-                                    Sorting by :
-                                    <t t-raw='website_sale_sortable_current[0][0]'/>
-                                </t>
-                                <t t-else='1'>
-                                    Sort by
-                                </t>
-                            </span>
-                            <i class="fa fa-sort-amount-asc d-lg-none"/>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right"
-                             role="menu">
-                            <t t-foreach="website_sale_sortable" t-as="sortby">
-                                <a role="menuitem" rel="noindex,nofollow"
-                                   t-att-href="keep('/shop', order=sortby[1])"
-                                   class="dropdown-item">
-                                    <span t-raw="sortby[0]"/>
-                                </a>
-                            </t>
-                        </div>
-                    </div>
-                </div>
-                <div class="row o_wsale_products_main_row">
-                    <div t-if="enable_left_column" id="products_grid_before"
-                         class="col-lg-3"/>
+            <!--                <div class="products_pager form-inline flex-md-nowrap justify-content-between justify-content-md-center">-->
+            <!--                    <t t-call="website_sale.search">-->
+            <!--                        <t t-set="_classes" t-valuef="w-100 w-md-auto mt-2"/>-->
+            <!--                    </t>-->
+            <!--                    <t t-call="website_sale.pricelist_list">-->
+            <!--                        <t t-set="_classes" t-valuef="mt-2 ml-md-2"/>-->
+            <!--                    </t>-->
+            <!--                    <t t-call="website.pager">-->
+            <!--                        <t t-set="_classes" t-valuef="mt-2 ml-md-2"/>-->
+            <!--                    </t>-->
+            <!--                    <t t-set="list_price_desc_label">Catalog price: High to-->
+            <!--                        Low-->
+            <!--                    </t>-->
+            <!--                    <t t-set="list_price_asc_label">Catalog price: Low to High-->
+            <!--                    </t>-->
+            <!--                    <t t-set="name_asc_label">Name: A to Z</t>-->
+            <!--                    <t t-set="name_desc_label">Name: Z to A</t>-->
+            <!--                    <t t-set="website_sale_sortable" t-value="[-->
+            <!--                (list_price_desc_label, 'list_price desc'),-->
+            <!--                (list_price_asc_label, 'list_price asc'),-->
+            <!--                (name_asc_label, 'name asc'),-->
+            <!--                (name_desc_label, 'name desc')-->
+            <!--            ]"/>-->
+            <!--                    <t t-set="website_sale_sortable_current"-->
+            <!--                       t-value="[sort for sort in website_sale_sortable if sort[1]==request.params.get('order', '')]"/>-->
+            <!--                    <div class="dropdown mt-2 ml-md-2 dropdown_sorty_by">-->
+            <!--                        <a role="button" href="#"-->
+            <!--                           class="dropdown-toggle btn btn-secondary"-->
+            <!--                           data-toggle="dropdown">-->
+            <!--                            <span class="d-none d-lg-inline">-->
+            <!--                                <t t-if='len(website_sale_sortable_current)'>-->
+            <!--                                    Sorting by :-->
+            <!--                                    <t t-raw='website_sale_sortable_current[0][0]'/>-->
+            <!--                                </t>-->
+            <!--                                <t t-else='1'>-->
+            <!--                                    Sort by-->
+            <!--                                </t>-->
+            <!--                            </span>-->
+            <!--                            <i class="fa fa-sort-amount-asc d-lg-none"/>-->
+            <!--                        </a>-->
+            <!--                        <div class="dropdown-menu dropdown-menu-right"-->
+            <!--                             role="menu">-->
+            <!--                            <t t-foreach="website_sale_sortable" t-as="sortby">-->
+            <!--                                <a role="menuitem" rel="noindex,nofollow"-->
+            <!--                                   t-att-href="keep('/shop', order=sortby[1])"-->
+            <!--                                   class="dropdown-item">-->
+            <!--                                    <span t-raw="sortby[0]"/>-->
+            <!--                                </a>-->
+            <!--                            </t>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="row o_wsale_products_main_row">-->
+            <!--                    <div t-if="enable_left_column" id="products_grid_before"-->
+            <!--                         class="col-lg-3"/>-->
 
-                    <div id="products_grid"
-                         t-attf-class="col #{'o_wsale_layout_list' if layout_mode == 'list' else ''}">
+            <!--                <div id="products_grid"-->
+            <!--                     t-attf-class="col #{'o_wsale_layout_list' if layout_mode == 'list' else ''}">-->
+        <xpath expr="//div[@class='o_wsale_products_grid_table_wrapper']"
+               position="replace">
 
+            <div t-if="bins" class="o_wsale_products_grid_table_wrapper ">
+                <table class="table table-borderless m-0" t-att-data-ppg="ppg"
+                       t-att-data-ppr="ppr"
+                       t-att-data-default-sort="website.shop_default_sort"
+                       t-att-data-name="grid_block_name">
+                    <colgroup t-ignore="true">
+                        <!-- Force the number of columns (useful when only one row of (x < ppr) products) -->
+                        <col t-foreach="ppr" t-as="p"/>
+                    </colgroup>
+                    <tbody>
+                        <tr t-foreach="bins" t-as="tr_product">
+                            <t t-foreach="tr_product"
+                               t-as="td_product">
+                                <t t-if="td_product">
+                                    <t t-set="product"
+                                       t-value="td_product['product']"/>
+                                    <!-- We use t-attf-class here to allow easier customization -->
+                                    <td t-att-colspan="td_product['x'] != 1 and td_product['x']"
+                                        t-att-rowspan="td_product['y'] != 1 and td_product['y']"
+                                        t-attf-class="oe_product"
+                                        t-att-data-ribbon-id="td_product['ribbon'].id"
+                                        t-att-data-name="product_block_name">
 
-                        <div t-if="bins"
-                             class="o_wsale_products_grid_table_wrapper ">
-                            <table class="table table-borderless m-0"
-                                   t-att-data-ppg="ppg" t-att-data-ppr="ppr">
-                                <colgroup t-ignore="true">
-                                    <!-- Force the number of columns (useful when only one row of (x < ppr) products) -->
-                                    <col t-foreach="ppr" t-as="p"/>
-                                </colgroup>
-                                <tbody>
-                                    <tr t-foreach="bins" t-as="tr_product">
-                                        <t t-foreach="tr_product"
-                                           t-as="td_product">
-                                            <t t-if="td_product">
-                                                <t t-set="product"
-                                                   t-value="td_product['product']"/>
-                                                <!-- We use t-attf-class here to allow easier customization -->
-                                                <td t-att-colspan="td_product['x'] != 1 and td_product['x']"
-                                                    t-att-rowspan="td_product['y'] != 1 and td_product['y']"
-                                                    t-attf-class="oe_product"
-                                                    t-att-data-ribbon-id="td_product['ribbon'].id">
+                                        <div t-attf-class="product o_wsale_product_grid_wrapper o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">
 
-                                                    <div t-attf-class="product o_wsale_product_grid_wrapper o_wsale_product_grid_wrapper_#{td_product['x']}_#{td_product['y']}">
-
-                                                        <t t-call="website_sale.products_item">
-                                                            <t t-set="product_image_big"
-                                                               t-value="td_product['x'] + td_product['y'] &gt; 2"/>
-                                                        </t>
-
-                                                    </div>
-                                                </td>
+                                            <t t-call="website_sale.products_item">
+                                                <t t-set="product_image_big"
+                                                   t-value="td_product['x'] + td_product['y'] &gt; 2"/>
                                             </t>
-                                            <td t-else=""/>
-                                        </t>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <t t-else="">
-                            <div class="text-center text-muted">
-                                <t t-if="not search">
-                                    <h3 class="mt8">No product defined</h3>
-                                    <p t-if="category">No product defined in
-                                        category "
-                                        <strong t-esc="category.display_name"/>
-                                        ".
-                                    </p>
+
+                                        </div>
+                                    </td>
                                 </t>
-                                <t t-else="">
-                                    <h3 class="mt8">No results</h3>
-                                    <p>No results for "<strong t-esc='search'/>"
-                                        <t t-if="category">in category "<strong
-                                                t-esc="category.display_name"/>"
-                                        </t>
-                                    </p>
-                                </t>
-                                <p t-ignore="true"
-                                   groups="sales_team.group_sale_manager">Click <i>
-                                    'New'
-                                </i> in the top-right corner to create your
-                                    first
-                                    product.
-                                </p>
-                            </div>
-                        </t>
-                    </div>
-                </div>
-                <div class="products_pager form-inline justify-content-center py-3">
-                    <t t-call="website.pager"/>
-                </div>
+                                <td t-else=""/>
+                            </t>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+            <!--                    <t t-else="">-->
+            <!--                        <div class="text-center text-muted">-->
+            <!--                            <t t-if="not search">-->
+            <!--                                <h3 class="mt8">No product defined</h3>-->
+            <!--                                <p t-if="category">No product defined in-->
+            <!--                                    category "-->
+            <!--                                    <strong t-esc="category.display_name"/>-->
+            <!--                                    ".-->
+            <!--                                </p>-->
+            <!--                            </t>-->
+            <!--                            <t t-else="">-->
+            <!--                                <h3 class="mt8">No results</h3>-->
+            <!--                                <p>No results for "<strong t-esc='search'/>"-->
+            <!--                                    <t t-if="category">in category "<strong-->
+            <!--                                            t-esc="category.display_name"/>"-->
+            <!--                                    </t>-->
+            <!--                                </p>-->
+            <!--                            </t>-->
+            <!--                            <p t-ignore="true"-->
+            <!--                               groups="sales_team.group_sale_manager">Click <i>-->
+            <!--                                'New'-->
+            <!--                            </i> in the top-right corner to create your-->
+            <!--                                first-->
+            <!--                                product.-->
+            <!--                            </p>-->
+            <!--                        </div>-->
+            <!--                    </t>-->
+            <!--                </div>-->
+            <!--                </div>-->
+            <!--                <div class="products_pager form-inline justify-content-center py-3">-->
+            <!--                    <t t-call="website.pager"/>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </xpath>
+<!--        <xpath expr="//div[@class='products_pager form-inline justify-content-center py-3']"-->
+<!--               position="replace">-->
+<!--            <div class="products_pager form-inline justify-content-center py-3">-->
+<!--                <t t-call="website.pager"/>-->
+<!--            </div>-->
+<!--        </xpath>-->
 
     </template>
 
@@ -241,6 +255,9 @@
                 </div>
                 <div id="product_option_block"/>
             </div>
+        </xpath>
+        <xpath expr="//div[@id='product_full_description']" position="replace">
+
         </xpath>
     </template>
 
