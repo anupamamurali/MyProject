@@ -10,7 +10,7 @@
 
         <!--                        <nav class="navbar ">-->
         <template id="template_header_hamburger_oe_structure_header_fasion"
-                  inherit_id="website.template_header_hamburger"
+                  inherit_id="website.template_header_default"
                   name="Template Header Fashion" active="True">
             <xpath expr="//t [@t-call='website.navbar']" position="replace">
                 <t t-call="website.navbar">

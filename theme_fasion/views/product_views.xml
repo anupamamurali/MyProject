@@ -51,82 +51,82 @@
                 </div>
             </div>
         </xpath>
-        <xpath expr="//div[@class='o_wsale_product_sub d-flex justify-content-between align-items-end pb-1']"
+        <xpath expr="//div[@class='o_wsale_product_sub d-flex justify-content-between align-items-end pb-1']/div[@class='product_price']"
                position="replace">
-            <div class="o_wsale_product_btn"/>
+
         </xpath>
     </template>
 
     <!--Product views in website-->
     <template id="fasion_product_theme" inherit_id="website_sale.products"
               customize_show="True" name="Fashion Theme">
-<!--        <xpath expr="//t[@t-call='website_sale.pricelist_list']"-->
-<!--               position="after">-->
-<!--            <t t-call="website.pager">-->
-<!--                <t t-set="_classes" t-valuef="mt-2 ml-md-2"/>-->
-<!--            </t>-->
-<!--        </xpath>-->
+        <!--        <xpath expr="//t[@t-call='website_sale.pricelist_list']"-->
+        <!--               position="after">-->
+        <!--            <t t-call="website.pager">-->
+        <!--                <t t-set="_classes" t-valuef="mt-2 ml-md-2"/>-->
+        <!--            </t>-->
+        <!--        </xpath>-->
 
-            <!--            <div class="container oe_website_sale">-->
+        <!--            <div class="container oe_website_sale">-->
 
-            <!--                <div class="products_pager form-inline flex-md-nowrap justify-content-between justify-content-md-center">-->
-            <!--                    <t t-call="website_sale.search">-->
-            <!--                        <t t-set="_classes" t-valuef="w-100 w-md-auto mt-2"/>-->
-            <!--                    </t>-->
-            <!--                    <t t-call="website_sale.pricelist_list">-->
-            <!--                        <t t-set="_classes" t-valuef="mt-2 ml-md-2"/>-->
-            <!--                    </t>-->
-            <!--                    <t t-call="website.pager">-->
-            <!--                        <t t-set="_classes" t-valuef="mt-2 ml-md-2"/>-->
-            <!--                    </t>-->
-            <!--                    <t t-set="list_price_desc_label">Catalog price: High to-->
-            <!--                        Low-->
-            <!--                    </t>-->
-            <!--                    <t t-set="list_price_asc_label">Catalog price: Low to High-->
-            <!--                    </t>-->
-            <!--                    <t t-set="name_asc_label">Name: A to Z</t>-->
-            <!--                    <t t-set="name_desc_label">Name: Z to A</t>-->
-            <!--                    <t t-set="website_sale_sortable" t-value="[-->
-            <!--                (list_price_desc_label, 'list_price desc'),-->
-            <!--                (list_price_asc_label, 'list_price asc'),-->
-            <!--                (name_asc_label, 'name asc'),-->
-            <!--                (name_desc_label, 'name desc')-->
-            <!--            ]"/>-->
-            <!--                    <t t-set="website_sale_sortable_current"-->
-            <!--                       t-value="[sort for sort in website_sale_sortable if sort[1]==request.params.get('order', '')]"/>-->
-            <!--                    <div class="dropdown mt-2 ml-md-2 dropdown_sorty_by">-->
-            <!--                        <a role="button" href="#"-->
-            <!--                           class="dropdown-toggle btn btn-secondary"-->
-            <!--                           data-toggle="dropdown">-->
-            <!--                            <span class="d-none d-lg-inline">-->
-            <!--                                <t t-if='len(website_sale_sortable_current)'>-->
-            <!--                                    Sorting by :-->
-            <!--                                    <t t-raw='website_sale_sortable_current[0][0]'/>-->
-            <!--                                </t>-->
-            <!--                                <t t-else='1'>-->
-            <!--                                    Sort by-->
-            <!--                                </t>-->
-            <!--                            </span>-->
-            <!--                            <i class="fa fa-sort-amount-asc d-lg-none"/>-->
-            <!--                        </a>-->
-            <!--                        <div class="dropdown-menu dropdown-menu-right"-->
-            <!--                             role="menu">-->
-            <!--                            <t t-foreach="website_sale_sortable" t-as="sortby">-->
-            <!--                                <a role="menuitem" rel="noindex,nofollow"-->
-            <!--                                   t-att-href="keep('/shop', order=sortby[1])"-->
-            <!--                                   class="dropdown-item">-->
-            <!--                                    <span t-raw="sortby[0]"/>-->
-            <!--                                </a>-->
-            <!--                            </t>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="row o_wsale_products_main_row">-->
-            <!--                    <div t-if="enable_left_column" id="products_grid_before"-->
-            <!--                         class="col-lg-3"/>-->
+        <!--                <div class="products_pager form-inline flex-md-nowrap justify-content-between justify-content-md-center">-->
+        <!--                    <t t-call="website_sale.search">-->
+        <!--                        <t t-set="_classes" t-valuef="w-100 w-md-auto mt-2"/>-->
+        <!--                    </t>-->
+        <!--                    <t t-call="website_sale.pricelist_list">-->
+        <!--                        <t t-set="_classes" t-valuef="mt-2 ml-md-2"/>-->
+        <!--                    </t>-->
+        <!--                    <t t-call="website.pager">-->
+        <!--                        <t t-set="_classes" t-valuef="mt-2 ml-md-2"/>-->
+        <!--                    </t>-->
+        <!--                    <t t-set="list_price_desc_label">Catalog price: High to-->
+        <!--                        Low-->
+        <!--                    </t>-->
+        <!--                    <t t-set="list_price_asc_label">Catalog price: Low to High-->
+        <!--                    </t>-->
+        <!--                    <t t-set="name_asc_label">Name: A to Z</t>-->
+        <!--                    <t t-set="name_desc_label">Name: Z to A</t>-->
+        <!--                    <t t-set="website_sale_sortable" t-value="[-->
+        <!--                (list_price_desc_label, 'list_price desc'),-->
+        <!--                (list_price_asc_label, 'list_price asc'),-->
+        <!--                (name_asc_label, 'name asc'),-->
+        <!--                (name_desc_label, 'name desc')-->
+        <!--            ]"/>-->
+        <!--                    <t t-set="website_sale_sortable_current"-->
+        <!--                       t-value="[sort for sort in website_sale_sortable if sort[1]==request.params.get('order', '')]"/>-->
+        <!--                    <div class="dropdown mt-2 ml-md-2 dropdown_sorty_by">-->
+        <!--                        <a role="button" href="#"-->
+        <!--                           class="dropdown-toggle btn btn-secondary"-->
+        <!--                           data-toggle="dropdown">-->
+        <!--                            <span class="d-none d-lg-inline">-->
+        <!--                                <t t-if='len(website_sale_sortable_current)'>-->
+        <!--                                    Sorting by :-->
+        <!--                                    <t t-raw='website_sale_sortable_current[0][0]'/>-->
+        <!--                                </t>-->
+        <!--                                <t t-else='1'>-->
+        <!--                                    Sort by-->
+        <!--                                </t>-->
+        <!--                            </span>-->
+        <!--                            <i class="fa fa-sort-amount-asc d-lg-none"/>-->
+        <!--                        </a>-->
+        <!--                        <div class="dropdown-menu dropdown-menu-right"-->
+        <!--                             role="menu">-->
+        <!--                            <t t-foreach="website_sale_sortable" t-as="sortby">-->
+        <!--                                <a role="menuitem" rel="noindex,nofollow"-->
+        <!--                                   t-att-href="keep('/shop', order=sortby[1])"-->
+        <!--                                   class="dropdown-item">-->
+        <!--                                    <span t-raw="sortby[0]"/>-->
+        <!--                                </a>-->
+        <!--                            </t>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="row o_wsale_products_main_row">-->
+        <!--                    <div t-if="enable_left_column" id="products_grid_before"-->
+        <!--                         class="col-lg-3"/>-->
 
-            <!--                <div id="products_grid"-->
-            <!--                     t-attf-class="col #{'o_wsale_layout_list' if layout_mode == 'list' else ''}">-->
+        <!--                <div id="products_grid"-->
+        <!--                     t-attf-class="col #{'o_wsale_layout_list' if layout_mode == 'list' else ''}">-->
         <xpath expr="//div[@class='o_wsale_products_grid_table_wrapper']"
                position="replace">
 
@@ -203,12 +203,12 @@
             <!--                </div>-->
             <!--            </div>-->
         </xpath>
-<!--        <xpath expr="//div[@class='products_pager form-inline justify-content-center py-3']"-->
-<!--               position="replace">-->
-<!--            <div class="products_pager form-inline justify-content-center py-3">-->
-<!--                <t t-call="website.pager"/>-->
-<!--            </div>-->
-<!--        </xpath>-->
+                <xpath expr="//div[@class='products_pager form-inline justify-content-center py-3']"
+                       position="replace">
+                    <div class="products_pager form-inline justify-content-center py-3">
+                        <t t-call="website.pager"/>
+                    </div>
+                </xpath>
 
     </template>
 
@@ -243,14 +243,21 @@
                    class="css_not_available_msg alert alert-warning">This
                     combination does not exist.
                 </p>
-
-
-                <div class="wrapper">
+                <!--                <div class="wrapper">-->
+                <!--                    <a role="button" id="add_to_cart"-->
+                <!--                       class="btn btn-primary btn-preview btn-lg mt16 js_check_product a-submit d-block d-sm-inline-block "-->
+                <!--                       href="#">-->
+                <!--                        <i class="fa fa-shopping-cart"/>-->
+                <!--                        Add to Cart-->
+                <!--                    </a>-->
+                <!--                </div>-->
+                <div id="add_to_cart_wrap"
+                     class="d-inline-flex align-items-center mb-2 mr-auto">
                     <a role="button" id="add_to_cart"
-                       class="btn btn-primary btn-preview btn-lg mt16 js_check_product a-submit d-block d-sm-inline-block "
+                       t-attf-class="btn btn-primary js_check_product a-submit flex-grow-1 #{'btn-lg' if ctaSizeBig else ''}"
                        href="#">
                         <i class="fa fa-shopping-cart"/>
-                        Add to Cart
+                        <span style="font-weight: bold">ADD TO CART</span>
                     </a>
                 </div>
                 <div id="product_option_block"/>
