@@ -1962,4 +1962,19 @@ background-color: #fe0000;
 * {
   font-family: "Montserrat", sans-serif;
 }
+
+/*/New Changes/*/
+#products_grid:not(.o_wsale_layout_list) td.oe_product {
+	height: auto;
+	padding-bottom: 7.5px;
+}
+.oe_product_cart.h-100.d-flex:hover span.fa-shopping-cart {
+	 color: #008B8B;
+}
+.btn-primary{
+color:#008B8B;
+}
+.btn-primary:hover {
+color:#000000;
+}
 /*# sourceMappingURL=style.css.map */

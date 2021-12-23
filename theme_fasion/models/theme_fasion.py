@@ -20,14 +20,9 @@
 #
 #############################################################################
 
-from odoo import models, api
+from odoo import models
 
 
 class ThemeFashion(models.AbstractModel):
     _inherit = 'theme.utils'
 
-    @api.model
-    def _theme_fasion_post_copy(self, mod):
-        print("ghj")
-        self.enable_view('website.template_header_hamburger')
-        self.disable_view('website.template_header_default')

@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <!--        <template id="template_header_hamburger_oe_structure_header_fasion"-->
-        <!--                  inherit_id="website.template_header_hamburger"-->
-        <!--                  name="Template Header Fashion">-->
-        <!--            <xpath expr="//header//nav" position="replace">-->
-        <!--                <section class="main-nav">-->
-        <!--                    <div class="container">-->
-
-        <!--                        <nav class="navbar ">-->
         <template id="template_header_hamburger_oe_structure_header_fasion"
                   inherit_id="website.template_header_default"
                   name="Template Header Fashion" active="True">
