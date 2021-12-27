@@ -3,7 +3,8 @@
     <template id="login_banner_lego"
               inherit_id="website.login_layout"
               name="login banner">
-        <xpath expr="//div[hasclass('oe_website_login_container')]" position="before">
+        <xpath expr="//div[hasclass('oe_website_login_container')]"
+               position="before">
             <section class="banner_product">
                 <div class="container">
                     <div class="row">
@@ -31,6 +32,34 @@
                     </div>
                 </div>
             </section>
+        </xpath>
+    </template>
+    <template id="company_description_google_map"
+              inherit_id="website.contactus" name="Google map"
+              customize_show="True">
+        <xpath expr="//div[@class='col-lg-4 mt-4 mt-lg-0']" position="inside">
+            <t t-if="not res_company.google_map_img()">
+                <span class="fa fa-map-marker fa-fw mt16" role="img"
+                      aria-label="Address" title="Address"/>
+                <a t-att-href="res_company.google_map_link()" target="_BLANK">
+                    Google Maps
+                </a>
+            </t>
+            <t t-if="res_company.google_map_img()">
+                <a t-att-href="res_company.google_map_link()" target="_BLANK">
+                    <img class="img-fluid"
+                         t-att-src="res_company.google_map_img()"
+                         alt="Google Maps"/>
+                </a>
+            </t>
+            <t t-elif="editable">
+                <div class="alert alert-warning">
+                    <i class="fa fa-plus-circle"/>
+                    The Google map option is enabled but <a
+                        href="/web#action=website.action_website_configuration">
+                    not properly configured</a>.
+                </div>
+            </t>
         </xpath>
     </template>
 </odoo>

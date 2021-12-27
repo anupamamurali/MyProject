@@ -1,40 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <!--        <template id="shop_products_lego" inherit_id="website_sale.products"-->
-        <!--                  name="shop products">-->
-        <!--            <xpath expr="//div[@id='products_grid']" position="replace">-->
-        <!--                <div t-attf-class="main_product col #{'o_wsale_layout_list' if layout_mode == 'list' else ''}">-->
-        <!--                    <section class="product_shop">-->
-        <!--                        <div class="wrapper">-->
-        <!--                            <div class="row">-->
-        <!--                                <t t-foreach="bins" t-as="tr_product">-->
-        <!--                                    <t t-foreach="tr_product" t-as="td_product">-->
-        <!--                                        <t t-if="td_product">-->
-        <!--                                            <t t-set="product"-->
-        <!--                                               t-value="td_product['product']"/>-->
-        <!--                                            <div class="col-lg-4 col-md-6 col-sm-6 col-12">-->
-        <!--                                                <t t-att-data-ribbon-id="td_product['ribbon'].id">-->
-        <!--                                                    <div t-attf-class="product_img">-->
-        <!--                                                        <div class="wrapper_img">-->
-        <!--                                                            <t t-call="website_sale.products_item">-->
-        <!--                                                            </t>-->
-        <!--                                                        </div>-->
-        <!--                                                    </div>-->
-        <!--                                                </t>-->
-        <!--                                            </div>-->
-        <!--                                        </t>-->
-        <!--                                    </t>-->
-        <!--                                </t>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </section>-->
-        <!--                </div>-->
-        <!--            </xpath>-->
-        <!--        </template>-->
 
         <template id="fasion_product_theme" inherit_id="website_sale.products"
-                  customize_show="True" name="Fashion Theme">
+                  customize_show="True" name="Lego Theme">
 
             <xpath expr="//div[@class='o_wsale_products_grid_table_wrapper']"
                    position="replace">
@@ -76,12 +45,19 @@
             </xpath>
         </template>
 
+        <template id="lego_product_preview" inherit_id="website_sale.product" customize_show="True">
+            <xpath expr="//div[@id='product_full_description']" position="replace">
+
+            </xpath>
+        </template>
+
+
         <template id="shop_products_lego_button"
                   inherit_id="website_sale.products_item"
                   name="lego button" active="True" customize_show="True"
                   priority="22">
             <xpath expr="//div[hasclass('o_wsale_product_btn')]"
-                   position="after">
+                   position="inside">
                 <div class="product_buttons" style="padding-bottom: 10px;">
                     <ul class="product_bottom">
                         <li class="hoverable">
