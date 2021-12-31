@@ -34,6 +34,8 @@ except ImportError:
 class ProjectReportXlsx(ReportXlsx):
 
     def generate_xlsx_report(self, workbook, data, objects):
+        print "objects=", objects
+        print "data=", data
         sheet1 = "Project plan"
         sheet2 = "Notes"
         worksheet1 = workbook.add_worksheet(sheet1)
@@ -53,6 +55,7 @@ class ProjectReportXlsx(ReportXlsx):
         date_from = data['form']['date_from']
         date_to = data['form']['date_to']
         tasks = self.env['project.task'].search([])
+        print "object name=", objects.name
         if date_from and not date_to:
             task = tasks.search([('date_start', '>=', date_from), ('project_id', '=', objects.name)])
         elif date_to and not date_from:
@@ -102,7 +105,9 @@ class ProjectReportXlsx(ReportXlsx):
             for data in task:
                 stages_all[data.stage_id.name] += 1
             stages = stages_all.keys()
+            print "stages=", stages
             count = stages_all.values()
+            print "count=", count
             percentage = []
             total = sum(count)
             for item in range(len(count)):
@@ -197,20 +202,26 @@ class ProjectReportXlsx(ReportXlsx):
             col += 2
             row += 1
             for data in task:
+                print "data=", data
                 assigned_to = "-"
                 if data.user_id.name:
                     assigned_to = data.user_id.name
+                    print "assigned to =", assigned_to
                 col = 0
                 worksheet1.merge_range(row, col, row, col + 3, data.name, format_cell)
+                print "data name=", data.name
                 col += 4
                 worksheet1.merge_range(row, col, row, col + 1, assigned_to, format_cell)
                 col += 2
                 priority = ""
                 for i in range(int(data.priority)):
+                    print "data priority=", data.priority
                     priority += "*"
                 worksheet1.write(row, col, priority, format_cell)
                 col += 1
                 worksheet1.merge_range(row, col, row, col + 1, data.stage_id.name, format_cell)
+                print "data stage_id =", data.stage_id
+                print "data stage_id name =", data.stage_id.name
                 row += 1
 
             # ---------------------Task description table 2 -------------------------- #
@@ -231,6 +242,8 @@ class ProjectReportXlsx(ReportXlsx):
             col = 0
             for data in task:
                 start_date = fields.Datetime.from_string(data.date_start)
+                print "date start=", data.date_start
+                print "date end=", data.date_end
                 start_date1 = start_date.strftime("%m-%d-%Y")
                 if data.date_end and data.date_end > data.date_start:
                     end_date = fields.Datetime.from_string(data.date_end)
@@ -259,8 +272,10 @@ class ProjectReportXlsx(ReportXlsx):
             # ---------------------Gantt chart view-------------------------- #
             worksheet3 = workbook.add_worksheet()
             if objects.date_start:
+                print "objects date start=", objects.date_start
                 project_start = datetime.datetime.date(fields.Datetime.from_string(objects.date_start))
             else:
+                print "object create date=", objects.create_date
                 project_start = datetime.datetime.date(fields.Datetime.from_string(objects.create_date))
             start_list = []
             days_list = []
@@ -269,6 +284,7 @@ class ProjectReportXlsx(ReportXlsx):
             project_end = datetime.datetime.date(datetime.datetime.now())
             for data in task:
                 if data.date_deadline:
+                    print "date dedline=", data.date_deadline
                     date_end_fmt = datetime.datetime.date(fields.Datetime.from_string(data.date_deadline))
                     if date_end_fmt > project_end:
                         project_end = date_end_fmt
@@ -293,6 +309,9 @@ class ProjectReportXlsx(ReportXlsx):
             ]
             worksheet3.write_row('A1', headings)
             worksheet3.write_column('A2', data[0])
+            print"data 0 =", data[0]
+            print"data 1 =", data[1]
+            print"data 2 =", data[2]
             worksheet3.write_column('B2', data[1])
             worksheet3.write_column('C2', data[2])
             chart2 = workbook.add_chart({'type': 'bar', 'subtype': 'stacked'})

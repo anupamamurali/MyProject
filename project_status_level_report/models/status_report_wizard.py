@@ -35,15 +35,21 @@ class StatusReportWizard(models.Model):
     date_from = fields.Datetime('Start Date')
     date_to = fields.Datetime('End Date')
 
-    # @api.multi
+    @api.multi
     def print_report_xls(self):
         context = self._context
+        print "context=", context
         datas = {'ids': context.get('active_ids', [])}
+        print "datas=", datas
         datas['model'] = 'project.project'
+        print "model=", datas['model']
         datas['form'] = self.read()[0]
+        print "form=", datas['form']
         for field in datas['form'].keys():
             if isinstance(datas['form'][field], tuple):
+                print "form_field=", datas['form'][field]
                 datas['form'][field] = datas['form'][field][0]
+                print "field=", datas['form'][field]
         if len(datas['ids']) > 1:
             raise except_orm('Warning', 'Selection of multiple record is not allowed')
         else:

@@ -19,5 +19,5 @@
 #    If not, see <http://www.gnu.org/licenses/>.
 #
 #############################################################################
-from . import status_report_wizard
-from . import status_report_xls
+import status_report_wizard
+import status_report_xls
