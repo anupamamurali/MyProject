@@ -19,5 +19,4 @@
 #    If not, see <http://www.gnu.org/licenses/>.
 #
 #############################################################################
-import status_report_wizard
-import status_report_xls
+from . import project_extended

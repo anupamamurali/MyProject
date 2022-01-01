@@ -34,8 +34,10 @@
     'version': '10.0.1.0.0',
     'depends': ['base', 'project', 'report_xlsx', 'hr_timesheet', 'analytic'],
     'data': [
-        'views/status_wizard_view.xml',
-        'views/report.xml'
+        'security/ir.model.access.csv',
+        'wizard/status_wizard_view.xml',
+        'report/report.xml',
+        'views/project_extended.xml'
     ],
     'license': 'AGPL-3',
     'images': ['static/description/banner.png'],
