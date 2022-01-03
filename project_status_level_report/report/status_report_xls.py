@@ -36,12 +36,7 @@ class StatusReportXls(models.AbstractModel):
     _inherit = 'report.report_xlsx.abstract'
 
     def generate_xlsx_report(self, workbook, data, objects):
-        print("in xlsx report")
-        print("data=", data)
-        print("record id=", data['record'])
         project = self.env['project.project'].search([('id', '=', data['record'])])
-        print("project id=", project.id)
-        print("project type=", type(project))
         sheet1 = "Project plan"
         sheet2 = "Notes"
         worksheet1 = workbook.add_worksheet(sheet1)
@@ -70,12 +65,9 @@ class StatusReportXls(models.AbstractModel):
                                  ('project_id', '=', project.id)])
         else:
             task = tasks.search([('project_id', '=', project.id)])
-        print("task=", task)
-
         report_date = datetime.datetime.now().strftime("%m/%d/%Y")
         completed = effective_hours = planned_hours = 0
         for data in task:
-            print("tasks=", data)
             if data.effective_hours:
                 effective_hours += data.effective_hours
             if data.planned_hours:
@@ -90,7 +82,6 @@ class StatusReportXls(models.AbstractModel):
         worksheet1.merge_range(row, col, row, col + 2, "Project Name", left_header)
         col += 3
         worksheet1.merge_range(row, col, row, col + 3, project.name, format_cell)
-        print("project name=", project.name)
         col = 0
         row += 1
         worksheet1.merge_range(row, col, row, col + 2, "Report Date", left_header)
@@ -114,14 +105,10 @@ class StatusReportXls(models.AbstractModel):
                 stages_all[data.stage_id.name] += 1
             stages = stages_all.keys()
             count = stages_all.values()
-            print("count=", count)
-            print("List = ", list(count))
             count = list(count)
             percentage = []
             total = sum(count)
             for item in range(len(count)):
-                print("in loop")
-                print("count item=", count[item])
                 percentage.append((float(count[item]) / total) * 100)
             row = 0
             col = 0
@@ -234,7 +221,6 @@ class StatusReportXls(models.AbstractModel):
 
                     assigned_to = assigned_to[::-1].replace(reverse_removal,
                                                  reverse_replacement, 1)[::-1]
-                    print("Assigned To=", assigned_to)
                     worksheet1.set_column(col, col+1, col_width)
                     worksheet1.merge_range(row, col, row, col + 1, assigned_to, format_cell)
                 col += 2
@@ -290,7 +276,6 @@ class StatusReportXls(models.AbstractModel):
 
                     assigned_to = assigned_to[::-1].replace(reverse_removal,
                                                  reverse_replacement, 1)[::-1]
-                    print("Assigned To=", assigned_to)
                     worksheet2.set_column(col, col+1, col_width)
                     worksheet2.merge_range(row, col, row, col + 1, assigned_to, format_cell)
                 col += 2
@@ -304,7 +289,7 @@ class StatusReportXls(models.AbstractModel):
                 col = 0
                 row += 1
 
-        #     # ---------------------Gantt chart view-------------------------- #
+         # ---------------------Gantt chart view-------------------------- #
             worksheet3 = workbook.add_worksheet()
             if project.date_start:
                 project_start = datetime.datetime.date(fields.Datetime.from_string(project.date_start))

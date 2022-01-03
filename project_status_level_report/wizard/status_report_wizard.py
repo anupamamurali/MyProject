@@ -30,7 +30,6 @@ class StatusReportWizard(models.TransientModel):
     date_to = fields.Datetime('End Date')
 
     def print_report_xls(self):
-        print("in function")
         domain = []
         date_from = self.date_from
         if date_from:
@@ -45,14 +44,10 @@ class StatusReportWizard(models.TransientModel):
                 "Warning...! Selection of multiple record is not allowed.")
         else:
             rec = project_obj.browse(active_ids)
-            print("record=", rec)
-            print("record id=", rec.id)
             data = {
                'form': self.read()[0],
                'record': rec.id
             }
-            print("data=", data)
-            print("length=", len(active_ids))
             return self.env.ref('project_status_level_report.project_status_report_new').report_action(self,
                                                                            data=data)
 

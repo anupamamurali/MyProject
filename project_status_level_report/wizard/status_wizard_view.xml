@@ -29,12 +29,11 @@
 
         <record id="xlsx_report" model="ir.actions.act_window">
             <field name="name">Project Status Level Report</field>
-            <field name="type">ir.actions.act_window</field>
             <field name="res_model">status.report.wizard</field>
             <field name="binding_model_id" ref="model_project_project"/>
             <field name="view_mode">form</field>
             <field name="binding_type">report</field>
-<!--            <field name="target">new</field>-->
+            <field name="target">new</field>
         </record>
 
     </data>
