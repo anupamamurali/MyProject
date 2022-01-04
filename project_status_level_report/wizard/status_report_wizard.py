@@ -33,8 +33,7 @@ class StatusReportWizard(models.TransientModel):
         project_obj = self.env['project.project']
         active_ids = self.env.context.get('active_ids', [])
         if len(active_ids) > 1:
-            raise UserError(_(
-                "Warning...! Selection of multiple record is not allowed."))
+            raise UserError(_("Warning...! Selection of multiple record is not allowed."))
         else:
             rec = project_obj.browse(active_ids)
             data = {

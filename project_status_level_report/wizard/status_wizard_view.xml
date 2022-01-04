@@ -31,7 +31,7 @@
             <field name="name">Project Status Level Report</field>
             <field name="res_model">status.report.wizard</field>
             <field name="binding_model_id" ref="model_project_project"/>
-            <field name="view_mode">form</field>
+            <field name="binding_view_types">form,list</field>
             <field name="binding_type">report</field>
             <field name="target">new</field>
         </record>
