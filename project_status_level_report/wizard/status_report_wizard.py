@@ -19,7 +19,7 @@
 #    If not, see <http://www.gnu.org/licenses/>.
 #
 #############################################################################
-from odoo import models, fields, api
+from odoo import models, fields, _
 from odoo.exceptions import UserError
 
 
@@ -30,18 +30,11 @@ class StatusReportWizard(models.TransientModel):
     date_to = fields.Datetime('End Date')
 
     def print_report_xls(self):
-        domain = []
-        date_from = self.date_from
-        if date_from:
-            domain += [('date', '>=', date_from)]
-        date_to = self.date_to
-        if date_from:
-            domain += [('date', '<=', date_to)]
         project_obj = self.env['project.project']
         active_ids = self.env.context.get('active_ids', [])
         if len(active_ids) > 1:
-            raise UserError(
-                "Warning...! Selection of multiple record is not allowed.")
+            raise UserError(_(
+                "Warning...! Selection of multiple record is not allowed."))
         else:
             rec = project_obj.browse(active_ids)
             data = {

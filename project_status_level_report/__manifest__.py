@@ -31,7 +31,7 @@
     'company': "Cybrosys Techno Solutions",
     'website': "http://www.cybrosys.com",
     'category': 'Project',
-    'version': '15.0.1.0.0',
+    'version': '14.0.1.0.0',
     'depends': ['base', 'project', 'report_xlsx', 'hr_timesheet', 'analytic'],
     'data': [
         'security/ir.model.access.csv',

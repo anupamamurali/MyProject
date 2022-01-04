@@ -19,7 +19,7 @@
 #    If not, see <http://www.gnu.org/licenses/>.
 #
 #############################################################################
-from odoo import models, fields
+from odoo import models, fields, _
 import datetime
 from odoo.exceptions import UserError
 from dateutil.relativedelta import relativedelta
@@ -202,27 +202,13 @@ class StatusReportXls(models.AbstractModel):
             col += 2
             row += 1
             for data in task:
+                assigned_to = "-"
+                if data.user_id.name:
+                    assigned_to = data.user_id.name
                 col = 0
                 worksheet1.merge_range(row, col, row, col + 3, data.name, format_cell)
                 col += 4
-                if data.user_ids:
-                    assigned_to = "-"
-                    col_width = 5
-                    for rec in data.user_ids:
-                        if rec.name:
-                            col_width += 5
-                            assigned_to += rec.name + ", "
-                    assigned_to = assigned_to.replace("-", " ")
-                    removal = ", "
-                    reverse_removal = removal[::-1]
-
-                    replacement = " "
-                    reverse_replacement = replacement[::-1]
-
-                    assigned_to = assigned_to[::-1].replace(reverse_removal,
-                                                 reverse_replacement, 1)[::-1]
-                    worksheet1.set_column(col, col+1, col_width)
-                    worksheet1.merge_range(row, col, row, col + 1, assigned_to, format_cell)
+                worksheet1.merge_range(row, col, row, col + 1, assigned_to, format_cell)
                 col += 2
                 priority = ""
                 for i in range(int(data.priority)):
@@ -258,26 +244,12 @@ class StatusReportXls(models.AbstractModel):
                 else:
                     date_difference = "-"
                     end_date1 = "-"
+                assigned_to = "-"
+                if data.user_id.name:
+                    assigned_to = data.user_id.name
                 worksheet2.merge_range(row, col, row, col + 3, data.name, format_cell)
                 col += 4
-                if data.user_ids:
-                    assigned_to = "-"
-                    col_width = 5
-                    for rec in data.user_ids:
-                        if rec.name:
-                            col_width += 5
-                            assigned_to += rec.name + ", "
-                    assigned_to = assigned_to.replace("-", " ")
-                    removal = ", "
-                    reverse_removal = removal[::-1]
-
-                    replacement = " "
-                    reverse_replacement = replacement[::-1]
-
-                    assigned_to = assigned_to[::-1].replace(reverse_removal,
-                                                 reverse_replacement, 1)[::-1]
-                    worksheet2.set_column(col, col+1, col_width)
-                    worksheet2.merge_range(row, col, row, col + 1, assigned_to, format_cell)
+                worksheet2.merge_range(row, col, row, col + 1, assigned_to, format_cell)
                 col += 2
                 worksheet2.merge_range(row, col, row, col + 1, start_date1, format_cell)
                 col += 2
@@ -289,7 +261,7 @@ class StatusReportXls(models.AbstractModel):
                 col = 0
                 row += 1
 
-         # ---------------------Gantt chart view-------------------------- #
+        #     # ---------------------Gantt chart view-------------------------- #
             worksheet3 = workbook.add_worksheet()
             if project.date_start:
                 project_start = datetime.datetime.date(fields.Datetime.from_string(project.date_start))
@@ -353,5 +325,5 @@ class StatusReportXls(models.AbstractModel):
             worksheet3.hide()
 
         else:
-            raise UserError("Warning...! No task to display.")
+            raise UserError(_("Warning...! No task to display."))
 
